@@ -34,10 +34,10 @@ export default function HomeInsuranceQuote() {
           </div>
 
           {/* SmartSuite Form */}
-          <iframe
-            src="https://app.smartsuite.com/form/sba974gi/l5qQJVsntQ?header=false"
+                    <iframe
+            src="https://app.smartsuite.com/form/sba974gi/l5qQJVsntQ?header=false&Prefill_Registration+Source=Home-Insurance"
             width="100%"
-            height="350px"
+            height="600px"
             frameBorder="0"
             className="rounded-lg border border-gray-200"
           />
