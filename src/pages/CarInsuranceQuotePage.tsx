@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import CarInsuranceQuote from '../components/CarInsuranceQuote'
 
 export default function CarInsuranceQuotePage() {
-  useEffect() => {
+  useEffect(() => {
     document.title = 'Car Insurance Quotes UK | Compare Cheap Car Insurance'
     
     const metaDescription = document.querySelector('meta[name="description"]')
@@ -42,3 +42,4 @@ export default function CarInsuranceQuotePage() {
 
   return <CarInsuranceQuote />
 }
+
