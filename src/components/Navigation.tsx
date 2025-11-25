@@ -11,7 +11,7 @@ export default function Navigation() {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2 text-primary-500 font-bold text-xl">
-            <span className="text-2xl">💰</span>
+            <span className="text-2xl">£</span>
             <span className="hidden sm:inline">Finance Hub UK</span>
             <span className="sm:hidden">FHUK</span>
           </Link>
