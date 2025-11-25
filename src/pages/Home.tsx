@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { Home as HomeIcon, Shield, Zap, CheckCircle, ArrowRight } from 'lucide-react'
+import { Shield, Zap, CheckCircle, ArrowRight } from 'lucide-react'
 
 export default function Home() {
   useEffect(() => {
