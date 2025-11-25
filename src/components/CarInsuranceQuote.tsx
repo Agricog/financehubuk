@@ -216,5 +216,54 @@ export default function CarInsuranceQuote() {
             <div>
               <h3 className="font-semibold text-lg mb-2 text-gray-900">Does car insurance cover driving in Europe?</h3>
               <p className="text-gray-700 leading-relaxed">
-                Most policies include 30-90 days EU cover (minimum legal requirements). For comprehensive cover abroad or
-                trips
+                Most UK pet insurance lets you use any licensed vet. Some policies restrict specialist referrals (requiring
+                pre-authorization). Always check if your preferred vet accepts direct claims.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="font-semibold text-lg mb-2 text-gray-900">
+                Will a non-fault accident affect my premium?
+              </h3>
+              <p className="text-gray-700 leading-relaxed">
+                Yes, surprisingly. Even non-fault claims can increase premiums 10-20% as insurers view you as higher
+                risk. Your no claims bonus is usually protected if you're not at fault, but the base premium may still
+                rise.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="font-semibold text-lg mb-2 text-gray-900">What happens if I'm caught without insurance?</h3>
+              <p className="text-gray-700 leading-relaxed">
+                Driving without insurance is illegal and carries severe penalties: £300 fixed penalty + 6 points on
+                licence, or unlimited fine + driving ban in court. Car may be seized and crushed. Future insurance costs
+                skyrocket (often doubles).
+              </p>
+            </div>
+
+            <div>
+              <h3 className="font-semibold text-lg mb-2 text-gray-900">
+                Can I cancel my car insurance and get a refund?
+              </h3>
+              <p className="text-gray-700 leading-relaxed">
+                You have 14 days "cooling off" period for full refund (minus admin fee). After that, you can cancel
+                anytime but pay cancellation fee (£25-£75) plus short-period insurance charge. If you've claimed, you may
+                get no refund.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="font-semibold text-lg mb-2 text-gray-900">Does car colour affect insurance cost?</h3>
+              <p className="text-gray-700 leading-relaxed">
+                No, this is a myth. UK insurers don't consider colour. What matters is make, model, engine size,
+                insurance group, and modifications. Red cars don't cost more - but red sports cars in high insurance
+                groups certainly do.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
