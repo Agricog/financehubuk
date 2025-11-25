@@ -34,7 +34,7 @@ export default function LifeInsuranceQuote() {
           <iframe
             src="https://app.smartsuite.com/form/sba974gi/l5qQJVsntQ?header=false"
             width="100%"
-            height="800px"
+            height="350px"
             frameBorder="0"
             className="rounded-lg border border-gray-200"
           />
