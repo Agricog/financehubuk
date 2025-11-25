@@ -2,6 +2,10 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Home from './pages/Home'
 import MortgageCalculatorPage from './pages/MortgageCalculatorPage'
 import LoanCalculatorPage from './pages/LoanCalculatorPage'
+import HomeInsuranceQuotePage from './pages/HomeInsuranceQuotePage'
+import CarInsuranceQuotePage from './pages/CarInsuranceQuotePage'
+import LifeInsuranceQuotePage from './pages/LifeInsuranceQuotePage'
+import PetInsuranceQuotePage from './pages/PetInsuranceQuotePage'
 import Navigation from './components/Navigation'
 import Footer from './components/Footer'
 
@@ -15,6 +19,10 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/calculators/mortgage-calculator" element={<MortgageCalculatorPage />} />
             <Route path="/calculators/loan-calculator" element={<LoanCalculatorPage />} />
+            <Route path="/calculators/home-insurance-quote" element={<HomeInsuranceQuotePage />} />
+            <Route path="/calculators/car-insurance-quote" element={<CarInsuranceQuotePage />} />
+            <Route path="/calculators/life-insurance-quote" element={<LifeInsuranceQuotePage />} />
+            <Route path="/calculators/pet-insurance-quote" element={<PetInsuranceQuotePage />} />
           </Routes>
         </main>
         <Footer />
