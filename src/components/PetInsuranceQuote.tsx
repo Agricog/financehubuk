@@ -156,7 +156,7 @@ export default function PetInsuranceQuote() {
                   <strong className="block mb-1">Senior Dog (10 years old) - Lifetime £6,000 cover</strong>
                   <p className="text-sm">
                     Average: £80-£150+/month. Over 8-10 years, premiums skyrocket. Many insurers won't accept new policies
-                    for dogs over 8-10.
+                    for dogs over 8-10 years old.
                   </p>
                 </div>
               </div>
@@ -238,7 +238,7 @@ export default function PetInsuranceQuote() {
                     <li>✓ You're comfortable with financial risk</li>
                     <li>✓ Your pet is mixed breed/healthy history</li>
                     <li>✓ You'd save premium in high-interest account</li>
-                    <li>✓ Your pet is already senior (>8 years)</li>
+                    <li>✓ Your pet is already senior (over 8 years)</li>
                   </ul>
                 </div>
               </div>
@@ -350,4 +350,5 @@ export default function PetInsuranceQuote() {
     </div>
   )
 }
+
 
