@@ -197,7 +197,7 @@ export default function PetInsuranceQuotePage() {
               frameBorder="0"
               title="Pet Insurance Quote Form"
               className="rounded-lg border border-gray-200"
-            ></iframe>
+            />
           </div>
         </div>
 
@@ -431,7 +431,60 @@ export default function PetInsuranceQuotePage() {
                 { term: "Excess", def: "Fixed amount you pay toward each claim (e.g., £100 excess per condition per year)" },
                 { term: "Lifetime Cover", def: "Annual vet fee limit that renews yearly for life (covers chronic conditions indefinitely)" },
                 { term: "Maximum Benefit", def: "Lifetime limit per condition (once reached, that condition is excluded forever)" },
-                { term: "Per Condition Limit", def: "Maximum insurer will pay for one specific health condition across policy lifetime
+                { term: "Per Condition Limit", def: "Maximum insurer will pay for one specific health condition across policy lifetime" },
+                { term: "Pre-Existing Condition", def: "Any illness/injury pet showed signs of before policy started (excluded forever)" },
+                { term: "Time-Limited", def: "Each condition covered for only 12 months from diagnosis; after that, excluded forever" },
+                { term: "Vet Fee Limit", def: "Maximum amount insurer will pay for veterinary treatment (£3,000-£15,000 typically)" }
+              ].map((item, idx) => (
+                <div key={idx} className="bg-gray-50 p-4 rounded-lg">
+                  <h4 className="font-semibold text-gray-900 mb-1">{item.term}</h4>
+                  <p className="text-sm text-gray-700">{item.def}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          <section>
+            <h2 className="text-2xl font-bold text-gray-900 mb-6">Related Calculators & Tools</h2>
+            <div className="grid md:grid-cols-2 gap-4">
+              <Link to="/calculators/mortgage-calculator" className="bg-blue-50 hover:bg-blue-100 border-l-4 border-primary-500 p-6 rounded transition">
+                <h3 className="font-semibold text-gray-900 mb-2">Mortgage Calculator</h3>
+                <p className="text-sm text-gray-700">Calculate mortgage payments and affordability</p>
+              </Link>
+              <Link to="/calculators/personal-loan-calculator" className="bg-green-50 hover:bg-green-100 border-l-4 border-green-500 p-6 rounded transition">
+                <h3 className="font-semibold text-gray-900 mb-2">Personal Loan Calculator</h3>
+                <p className="text-sm text-gray-700">Calculate monthly payments for personal loans</p>
+              </Link>
+              <Link to="/calculators/car-insurance-quote" className="bg-purple-50 hover:bg-purple-100 border-l-4 border-purple-500 p-6 rounded transition">
+                <h3 className="font-semibold text-gray-900 mb-2">Car Insurance Quote</h3>
+                <p className="text-sm text-gray-700">Compare car insurance quotes from top providers</p>
+              </Link>
+              <Link to="/calculators/home-insurance-quote" className="bg-orange-50 hover:bg-orange-100 border-l-4 border-orange-500 p-6 rounded transition">
+                <h3 className="font-semibold text-gray-900 mb-2">Home Insurance Quote</h3>
+                <p className="text-sm text-gray-700">Compare home insurance from leading providers</p>
+              </Link>
+            </div>
+          </section>
+
+          <section className="bg-gradient-to-r from-primary-500 to-primary-600 text-white rounded-xl p-8">
+            <h2 className="text-2xl font-bold mb-3">Get Your Pet Protected Today</h2>
+            <p className="mb-6">Get personalized pet insurance quotes instantly. Compare lifetime, time-limited, and accident-only cover from leading UK insurers. Protect your beloved pet's health and your finances.</p>
+            
+            <button className="bg-white text-primary-600 font-semibold py-3 px-8 rounded-lg hover:bg-gray-100 transition">
+              Get Free Quote
+            </button>
+          </section>
+        </div>
+
+        <div className="mt-12 pt-8 border-t border-gray-200 text-center text-sm text-gray-600">
+          <p>This tool provides estimates for informational purposes only. Actual pet insurance quotes depend on your pet's species, breed, age, health, and location.</p>
+          <p className="mt-2"><Link to="/privacy-policy" className="hover:underline">Privacy Policy</Link> | <Link to="/terms-of-service" className="hover:underline">Terms of Service</Link></p>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 
 
 
