@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { Shield, Zap, CheckCircle, ArrowRight } from 'lucide-react'
+import { Link } from 'react-router-dom'
 
 export default function Home() {
   useEffect(() => {
@@ -7,7 +8,10 @@ export default function Home() {
     
     const metaDescription = document.querySelector('meta[name="description"]')
     if (metaDescription) {
-      metaDescription.setAttribute('content', 'Free UK financial calculators for mortgages, insurance, loans & more. Compare quotes from top providers instantly. No signup required. Save up to 50% on premiums.')
+      metaDescription.setAttribute(
+        'content',
+        'Free UK financial calculators for mortgages, insurance, loans & more. Compare quotes from top providers instantly. No signup required.'
+      )
     }
 
     const ogTitle = document.querySelector('meta[property="og:title"]')
@@ -185,8 +189,8 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {/* Mortgage Calculator */}
-            <a
-              href="/calculators/mortgage-calculator"
+            <Link
+              to="/calculators/mortgage-calculator"
               className="bg-white border-2 border-gray-200 rounded-xl p-6 hover:shadow-xl hover:border-primary-500 transition group"
             >
               <div className="text-4xl mb-4">🏠</div>
@@ -197,11 +201,11 @@ export default function Home() {
               <div className="text-primary-500 font-semibold flex items-center gap-2 group-hover:gap-3 transition-all">
                 Calculate Now <ArrowRight className="w-4 h-4" />
               </div>
-            </a>
+            </Link>
 
             {/* Home Insurance */}
-            <a
-              href="/calculators/home-insurance-quote"
+            <Link
+              to="/calculators/home-insurance-quote"
               className="bg-white border-2 border-gray-200 rounded-xl p-6 hover:shadow-xl hover:border-primary-500 transition group"
             >
               <div className="text-4xl mb-4">🏡</div>
@@ -212,11 +216,11 @@ export default function Home() {
               <div className="text-primary-500 font-semibold flex items-center gap-2 group-hover:gap-3 transition-all">
                 Get Quote <ArrowRight className="w-4 h-4" />
               </div>
-            </a>
+            </Link>
 
             {/* Car Insurance */}
-            <a
-              href="/calculators/car-insurance-quote"
+            <Link
+              to="/calculators/car-insurance-quote"
               className="bg-white border-2 border-gray-200 rounded-xl p-6 hover:shadow-xl hover:border-primary-500 transition group"
             >
               <div className="text-4xl mb-4">🚗</div>
@@ -227,11 +231,11 @@ export default function Home() {
               <div className="text-primary-500 font-semibold flex items-center gap-2 group-hover:gap-3 transition-all">
                 Get Quote <ArrowRight className="w-4 h-4" />
               </div>
-            </a>
+            </Link>
 
             {/* Life Insurance */}
-            <a
-              href="/calculators/life-insurance-quote"
+            <Link
+              to="/calculators/life-insurance-quote"
               className="bg-white border-2 border-gray-200 rounded-xl p-6 hover:shadow-xl hover:border-primary-500 transition group"
             >
               <div className="text-4xl mb-4">❤️</div>
@@ -242,11 +246,11 @@ export default function Home() {
               <div className="text-primary-500 font-semibold flex items-center gap-2 group-hover:gap-3 transition-all">
                 Get Quote <ArrowRight className="w-4 h-4" />
               </div>
-            </a>
+            </Link>
 
             {/* Pet Insurance */}
-            <a
-              href="/calculators/pet-insurance-quote"
+            <Link
+              to="/calculators/pet-insurance-quote"
               className="bg-white border-2 border-gray-200 rounded-xl p-6 hover:shadow-xl hover:border-primary-500 transition group"
             >
               <div className="text-4xl mb-4">🐾</div>
@@ -257,11 +261,11 @@ export default function Home() {
               <div className="text-primary-500 font-semibold flex items-center gap-2 group-hover:gap-3 transition-all">
                 Get Quote <ArrowRight className="w-4 h-4" />
               </div>
-            </a>
+            </Link>
 
-            {/* Loan Calculator */}
-            <a
-              href="/calculators/personal-loan-calculator"
+            {/* Personal Loan Calculator */}
+            <Link
+              to="/calculators/loan-calculator"
               className="bg-white border-2 border-gray-200 rounded-xl p-6 hover:shadow-xl hover:border-primary-500 transition group"
             >
               <div className="text-4xl mb-4">💳</div>
@@ -272,7 +276,67 @@ export default function Home() {
               <div className="text-primary-500 font-semibold flex items-center gap-2 group-hover:gap-3 transition-all">
                 Calculate <ArrowRight className="w-4 h-4" />
               </div>
-            </a>
+            </Link>
+
+            {/* Savings Goal Calculator */}
+            <Link
+              to="/calculators/savings-goal-calculator"
+              className="bg-white border-2 border-gray-200 rounded-xl p-6 hover:shadow-xl hover:border-primary-500 transition group"
+            >
+              <div className="text-4xl mb-4">💰</div>
+              <h3 className="text-xl font-bold text-gray-900 mb-3">Savings Goal Calculator</h3>
+              <p className="text-gray-600 text-sm mb-4">
+                Calculate how long it takes to reach your savings goals and plan your future.
+              </p>
+              <div className="text-primary-500 font-semibold flex items-center gap-2 group-hover:gap-3 transition-all">
+                Calculate <ArrowRight className="w-4 h-4" />
+              </div>
+            </Link>
+
+            {/* Budget Planner Calculator */}
+            <Link
+              to="/calculators/budget-planner-calculator"
+              className="bg-white border-2 border-gray-200 rounded-xl p-6 hover:shadow-xl hover:border-primary-500 transition group"
+            >
+              <div className="text-4xl mb-4">📊</div>
+              <h3 className="text-xl font-bold text-gray-900 mb-3">Budget Planner</h3>
+              <p className="text-gray-600 text-sm mb-4">
+                Plan your monthly budget and track spending with the 50/30/20 rule.
+              </p>
+              <div className="text-primary-500 font-semibold flex items-center gap-2 group-hover:gap-3 transition-all">
+                Create Budget <ArrowRight className="w-4 h-4" />
+              </div>
+            </Link>
+
+            {/* Credit Card Payoff Calculator */}
+            <Link
+              to="/calculators/credit-card-payoff-calculator"
+              className="bg-white border-2 border-gray-200 rounded-xl p-6 hover:shadow-xl hover:border-primary-500 transition group"
+            >
+              <div className="text-4xl mb-4">💳</div>
+              <h3 className="text-xl font-bold text-gray-900 mb-3">Credit Card Payoff</h3>
+              <p className="text-gray-600 text-sm mb-4">
+                Calculate your credit card payoff timeline and discover savings strategies.
+              </p>
+              <div className="text-primary-500 font-semibold flex items-center gap-2 group-hover:gap-3 transition-all">
+                Calculate <ArrowRight className="w-4 h-4" />
+              </div>
+            </Link>
+
+            {/* Investment Calculator */}
+            <Link
+              to="/calculators/investment-calculator"
+              className="bg-white border-2 border-gray-200 rounded-xl p-6 hover:shadow-xl hover:border-primary-500 transition group"
+            >
+              <div className="text-4xl mb-4">📈</div>
+              <h3 className="text-xl font-bold text-gray-900 mb-3">Investment Calculator</h3>
+              <p className="text-gray-600 text-sm mb-4">
+                Calculate investment growth and compound interest over time.
+              </p>
+              <div className="text-primary-500 font-semibold flex items-center gap-2 group-hover:gap-3 transition-all">
+                Calculate <ArrowRight className="w-4 h-4" />
+              </div>
+            </Link>
           </div>
         </div>
       </section>
@@ -333,4 +397,5 @@ export default function Home() {
     </div>
   )
 }
+
 
