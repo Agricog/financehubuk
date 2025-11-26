@@ -20,7 +20,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/calculators/mortgage-calculator" element={<MortgageCalculatorPage />} />
-            <Route path="/calculators/personal-loan-calculator" element={<LoanCalculatorPage />} />
+            <Route path="/calculators/loan-calculator" element={<LoanCalculatorPage />} />
             <Route path="/calculators/home-insurance-quote" element={<HomeInsuranceQuotePage />} />
             <Route path="/calculators/car-insurance-quote" element={<CarInsuranceQuotePage />} />
             <Route path="/calculators/life-insurance-quote" element={<LifeInsuranceQuotePage />} />
