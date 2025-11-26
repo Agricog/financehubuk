@@ -3,13 +3,6 @@ import { ArrowLeft, Download, Share2 } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { useEffect } from 'react'
 
-declare global {
-  interface Window {
-    gtag: any
-    dataLayer: any
-  }
-}
-
 export default function MortgageCalculatorPage() {
   const [propertyPrice, setPropertyPrice] = useState(250000)
   const [deposit, setDeposit] = useState(50000)
@@ -172,9 +165,8 @@ export default function MortgageCalculatorPage() {
       loanAmount: loanAmount.toFixed(2)
     })
 
-    // Track calculator usage in Google Analytics
-    if (window.gtag) {
-      window.gtag('event', 'calculator_usage', {
+    if (typeof window !== 'undefined' && (window as any).gtag) {
+      (window as any).gtag('event', 'calculator_usage', {
         property_price: propertyPrice,
         deposit: deposit,
         interest_rate: interestRate,
@@ -187,9 +179,8 @@ export default function MortgageCalculatorPage() {
   const handleFormSubmit = async (e) => {
     e.preventDefault()
     
-    // Track form submission in Google Analytics
-    if (window.gtag) {
-      window.gtag('event', 'form_submission', {
+    if (typeof window !== 'undefined' && (window as any).gtag) {
+      (window as any).gtag('event', 'form_submission', {
         form_name: 'mortgage_inquiry',
         monthly_payment: results?.monthlyPayment || 0,
         total_interest: results?.totalInterest || 0
@@ -197,7 +188,6 @@ export default function MortgageCalculatorPage() {
     }
 
     try {
-      // Send to SmartSuite webhook
       const smartSuitePayload = {
         name: formData.name,
         email: formData.email,
@@ -219,7 +209,6 @@ export default function MortgageCalculatorPage() {
         },
         body: JSON.stringify(smartSuitePayload)
       }).catch(() => {
-        // Silently fail if SmartSuite endpoint unavailable
         console.log('SmartSuite submission attempted')
       })
     } catch (error) {
@@ -578,6 +567,7 @@ export default function MortgageCalculatorPage() {
     </div>
   )
 }
+
 
 
 
