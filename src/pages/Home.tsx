@@ -181,10 +181,10 @@ export default function Home() {
       <section id="calculators" className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl md:text-4xl font-bold text-center text-gray-900 mb-4">
-            Financial Calculators
+            Financial Calculators & Tools
           </h2>
           <p className="text-center text-gray-600 text-lg mb-12">
-            Choose a calculator to get started
+            Choose from 15+ calculators to get started
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -268,7 +268,7 @@ export default function Home() {
               to="/calculators/loan-calculator"
               className="bg-white border-2 border-gray-200 rounded-xl p-6 hover:shadow-xl hover:border-primary-500 transition group"
             >
-              <div className="text-4xl mb-4">💳</div>
+              <div className="text-4xl mb-4">💰</div>
               <h3 className="text-xl font-bold text-gray-900 mb-3">Personal Loan Calculator</h3>
               <p className="text-gray-600 text-sm mb-4">
                 Calculate loan payments and compare personal loan offers from UK providers.
@@ -337,6 +337,81 @@ export default function Home() {
                 Calculate <ArrowRight className="w-4 h-4" />
               </div>
             </Link>
+
+            {/* Savings Interest Calculator */}
+            <Link
+              to="/calculators/savings-interest-calculator"
+              className="bg-white border-2 border-gray-200 rounded-xl p-6 hover:shadow-xl hover:border-primary-500 transition group"
+            >
+              <div className="text-4xl mb-4">🏦</div>
+              <h3 className="text-xl font-bold text-gray-900 mb-3">Savings Interest Calculator</h3>
+              <p className="text-gray-600 text-sm mb-4">
+                Calculate interest earned on savings accounts, ISAs, and fixed-rate bonds.
+              </p>
+              <div className="text-primary-500 font-semibold flex items-center gap-2 group-hover:gap-3 transition-all">
+                Calculate <ArrowRight className="w-4 h-4" />
+              </div>
+            </Link>
+
+            {/* Compound Interest Calculator */}
+            <Link
+              to="/calculators/compound-interest-calculator"
+              className="bg-white border-2 border-gray-200 rounded-xl p-6 hover:shadow-xl hover:border-primary-500 transition group"
+            >
+              <div className="text-4xl mb-4">📈</div>
+              <h3 className="text-xl font-bold text-gray-900 mb-3">Compound Interest Calculator</h3>
+              <p className="text-gray-600 text-sm mb-4">
+                See the power of compound interest and long-term wealth building.
+              </p>
+              <div className="text-primary-500 font-semibold flex items-center gap-2 group-hover:gap-3 transition-all">
+                Calculate <ArrowRight className="w-4 h-4" />
+              </div>
+            </Link>
+
+            {/* Net Worth Calculator */}
+            <Link
+              to="/calculators/net-worth-calculator"
+              className="bg-white border-2 border-gray-200 rounded-xl p-6 hover:shadow-xl hover:border-primary-500 transition group"
+            >
+              <div className="text-4xl mb-4">💎</div>
+              <h3 className="text-xl font-bold text-gray-900 mb-3">Net Worth Calculator</h3>
+              <p className="text-gray-600 text-sm mb-4">
+                Track your assets and liabilities to calculate your net worth instantly.
+              </p>
+              <div className="text-primary-500 font-semibold flex items-center gap-2 group-hover:gap-3 transition-all">
+                Calculate <ArrowRight className="w-4 h-4" />
+              </div>
+            </Link>
+
+            {/* Savings Account Comparison */}
+            <Link
+              to="/calculators/savings-account-comparison"
+              className="bg-white border-2 border-gray-200 rounded-xl p-6 hover:shadow-xl hover:border-primary-500 transition group"
+            >
+              <div className="text-4xl mb-4">🔍</div>
+              <h3 className="text-xl font-bold text-gray-900 mb-3">Savings Account Comparison</h3>
+              <p className="text-gray-600 text-sm mb-4">
+                Compare UK savings accounts and find the best interest rates for your money.
+              </p>
+              <div className="text-primary-500 font-semibold flex items-center gap-2 group-hover:gap-3 transition-all">
+                Compare <ArrowRight className="w-4 h-4" />
+              </div>
+            </Link>
+
+            {/* Currency Converter */}
+            <Link
+              to="/calculators/currency-converter"
+              className="bg-white border-2 border-gray-200 rounded-xl p-6 hover:shadow-xl hover:border-primary-500 transition group"
+            >
+              <div className="text-4xl mb-4">🌍</div>
+              <h3 className="text-xl font-bold text-gray-900 mb-3">Currency Converter</h3>
+              <p className="text-gray-600 text-sm mb-4">
+                Convert GBP to 50+ global currencies with live exchange rates instantly.
+              </p>
+              <div className="text-primary-500 font-semibold flex items-center gap-2 group-hover:gap-3 transition-all">
+                Convert <ArrowRight className="w-4 h-4" />
+              </div>
+            </Link>
           </div>
         </div>
       </section>
@@ -397,5 +472,6 @@ export default function Home() {
     </div>
   )
 }
+
 
 
