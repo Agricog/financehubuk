@@ -6,6 +6,10 @@ import HomeInsuranceQuotePage from './pages/HomeInsuranceQuotePage'
 import CarInsuranceQuotePage from './pages/CarInsuranceQuotePage'
 import LifeInsuranceQuotePage from './pages/LifeInsuranceQuotePage'
 import PetInsuranceQuotePage from './pages/PetInsuranceQuotePage'
+import SavingsGoalCalculator from './pages/SavingsGoalCalculator'
+import BudgetPlannerCalculator from './pages/BudgetPlannerCalculator'
+import CreditCardPayoffCalculator from './pages/CreditCardPayoffCalculator'
+import InvestmentCalculator from './pages/InvestmentCalculator'
 import PrivacyPolicyPage from './pages/PrivacyPolicyPage'
 import TermsOfServicePage from './pages/TermsOfServicePage'
 import Navigation from './components/Navigation'
@@ -25,6 +29,10 @@ function App() {
             <Route path="/calculators/car-insurance-quote" element={<CarInsuranceQuotePage />} />
             <Route path="/calculators/life-insurance-quote" element={<LifeInsuranceQuotePage />} />
             <Route path="/calculators/pet-insurance-quote" element={<PetInsuranceQuotePage />} />
+            <Route path="/calculators/savings-goal-calculator" element={<SavingsGoalCalculator />} />
+            <Route path="/calculators/budget-planner-calculator" element={<BudgetPlannerCalculator />} />
+            <Route path="/calculators/credit-card-payoff-calculator" element={<CreditCardPayoffCalculator />} />
+            <Route path="/calculators/investment-calculator" element={<InvestmentCalculator />} />
             <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
             <Route path="/terms-of-service" element={<TermsOfServicePage />} />
           </Routes>
