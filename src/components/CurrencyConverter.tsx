@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { ArrowLeft, ArrowRightLeft } from 'lucide-react'
+import { ArrowLeft } from 'lucide-react'
 import { Link } from 'react-router-dom'
 
 interface ExchangeRate {
@@ -128,7 +128,7 @@ export default function CurrencyConverter() {
             </div>
 
             <div className="flex justify-center">
-              <ArrowRightLeft className="w-6 h-6 text-primary-500" />
+              <div className="text-primary-500 text-3xl">↔</div>
             </div>
 
             <div>
@@ -249,12 +249,9 @@ export default function CurrencyConverter() {
             <h2 className="text-2xl font-bold mb-3">Convert Currencies Instantly</h2>
             <p className="mb-6">Use our free currency converter for travel, business, and investment. Get live exchange rates for 50+ global currencies.</p>
             
-            <button 
-              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-              className="bg-white text-primary-600 font-semibold py-3 px-8 rounded-lg hover:bg-gray-100 transition"
-            >
-              Convert Now
-            </button>
+            <div className="bg-white bg-opacity-10 p-6 rounded-lg">
+              <iframe src="https://app.smartsuite.com/form/sba974gi/l5qQJVsntQ?header=false" width="100%" height="350" frameBorder="0" title="SmartSuite Currency Converter Inquiry Form"></iframe>
+            </div>
           </section>
         </div>
 
@@ -266,3 +263,4 @@ export default function CurrencyConverter() {
     </div>
   )
 }
+
