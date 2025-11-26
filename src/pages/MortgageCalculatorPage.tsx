@@ -3,12 +3,20 @@ import { ArrowLeft, Download, Share2 } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { useEffect } from 'react'
 
+interface MortgageResults {
+  monthlyPayment: string
+  totalInterest: string
+  totalPaid: string
+  ltvRatio: string
+  loanAmount: string
+}
+
 export default function MortgageCalculatorPage() {
   const [propertyPrice, setPropertyPrice] = useState(250000)
   const [deposit, setDeposit] = useState(50000)
   const [interestRate, setInterestRate] = useState(5)
   const [loanTerm, setLoanTerm] = useState(25)
-  const [results, setResults] = useState(null)
+  const [results, setResults] = useState<MortgageResults | null>(null)
   const [formData, setFormData] = useState({ name: '', email: '', phone: '' })
   const [formSubmitted, setFormSubmitted] = useState(false)
 
@@ -176,7 +184,7 @@ export default function MortgageCalculatorPage() {
     }
   }
 
-  const handleFormSubmit = async (e) => {
+  const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     
     if (typeof window !== 'undefined' && (window as any).gtag) {
@@ -567,6 +575,7 @@ export default function MortgageCalculatorPage() {
     </div>
   )
 }
+
 
 
 
