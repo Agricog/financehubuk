@@ -246,12 +246,9 @@ export default function SavingsAccountComparison() {
             <h2 className="text-2xl font-bold mb-3">Find Your Best Savings Account</h2>
             <p className="mb-6">Compare current rates and choose the account that matches your savings goals and lifestyle.</p>
             
-            <button 
-              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-              className="bg-white text-primary-600 font-semibold py-3 px-8 rounded-lg hover:bg-gray-100 transition"
-            >
-              Compare Now
-            </button>
+            <div className="bg-white bg-opacity-10 p-6 rounded-lg">
+              <iframe src="https://app.smartsuite.com/form/sba974gi/l5qQJVsntQ?header=false" width="100%" height="350" frameBorder="0" title="SmartSuite Savings Account Inquiry Form"></iframe>
+            </div>
           </section>
         </div>
 
@@ -263,4 +260,5 @@ export default function SavingsAccountComparison() {
     </div>
   )
 }
+
 
