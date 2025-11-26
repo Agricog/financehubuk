@@ -350,7 +350,7 @@ export default function CreditCardPayoffCalculator() {
                 <h3 className="font-semibold text-gray-900 mb-2">Savings Goal Calculator</h3>
                 <p className="text-sm text-gray-700">Calculate time to reach savings goals</p>
               </Link>
-              <Link to="/calculators/personal-loan-calculator" className="bg-purple-50 hover:bg-purple-100 border-l-4 border-purple-500 p-6 rounded transition">
+              <Link to="/calculators/loan-calculator" className="bg-purple-50 hover:bg-purple-100 border-l-4 border-purple-500 p-6 rounded transition">
                 <h3 className="font-semibold text-gray-900 mb-2">Personal Loan Calculator</h3>
                 <p className="text-sm text-gray-700">Calculate loan payments and affordability</p>
               </Link>
