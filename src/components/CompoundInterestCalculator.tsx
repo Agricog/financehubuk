@@ -129,57 +129,59 @@ export default function CompoundInterestCalculator() {
         <div className="bg-white rounded-xl shadow-lg p-8 mb-12">
           <h2 className="text-2xl font-bold text-gray-900 mb-6">Calculate Compound Interest Growth</h2>
           
-          <div className="grid md:grid-cols-2 gap-8 mb-8">
-            <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">Initial Investment: £{initialInvestment.toLocaleString()}</label>
-              <input type="range" min="1000" max="100000" step="1000" value={initialInvestment} onChange={(e) => { setInitialInvestment(parseFloat(e.target.value)); calculateCompound() }} className="w-full h-2 bg-gray-300 rounded-lg appearance-none cursor-pointer" aria-label="Initial investment slider" />
-              <input type="number" value={initialInvestment} onChange={(e) => { setInitialInvestment(parseFloat(e.target.value) || 0); calculateCompound() }} className="w-full mt-2 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent" placeholder="Enter initial amount" aria-label="Initial investment input" />
-            </div>
-
-            <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">Monthly Contribution: £{monthlyContribution.toLocaleString()}</label>
-              <input type="range" min="0" max="2000" step="50" value={monthlyContribution} onChange={(e) => { setMonthlyContribution(parseFloat(e.target.value)); calculateCompound() }} className="w-full h-2 bg-gray-300 rounded-lg appearance-none cursor-pointer" aria-label="Monthly contribution slider" />
-              <input type="number" value={monthlyContribution} onChange={(e) => { setMonthlyContribution(parseFloat(e.target.value) || 0); calculateCompound() }} className="w-full mt-2 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent" placeholder="Enter monthly amount" aria-label="Monthly contribution input" />
-            </div>
-
-            <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">Annual Return (%): {annualRate.toFixed(2)}%</label>
-              <input type="range" min="1" max="15" step="0.1" value={annualRate} onChange={(e) => { setAnnualRate(parseFloat(e.target.value)); calculateCompound() }} className="w-full h-2 bg-gray-300 rounded-lg appearance-none cursor-pointer" aria-label="Annual return slider" />
-              <input type="number" value={annualRate} onChange={(e) => { setAnnualRate(parseFloat(e.target.value) || 0); calculateCompound() }} step="0.1" className="w-full mt-2 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent" placeholder="Enter annual return" aria-label="Annual return input" />
-            </div>
-
-            <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">Time Period (Years): {years}</label>
-              <input type="range" min="1" max="50" step="1" value={years} onChange={(e) => { setYears(parseFloat(e.target.value)); calculateCompound() }} className="w-full h-2 bg-gray-300 rounded-lg appearance-none cursor-pointer" aria-label="Years slider" />
-              <input type="number" value={years} onChange={(e) => { setYears(parseFloat(e.target.value) || 0); calculateCompound() }} className="w-full mt-2 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent" placeholder="Enter years" aria-label="Years input" />
-            </div>
-          </div>
-
-          <button onClick={calculateCompound} className="w-full bg-primary-500 hover:bg-primary-600 text-white font-semibold py-3 rounded-lg transition">Calculate Growth</button>
-
-          <div className="mt-8 space-y-4">
-            {results ? (
-              <div className="bg-gradient-to-br from-primary-50 to-primary-100 rounded-lg p-8 space-y-4">
-                <div>
-                  <p className="text-sm text-gray-600">Final Portfolio Value</p>
-                  <p className="text-4xl font-bold text-primary-600">£{parseFloat(results.finalAmount).toLocaleString('en-GB', { minimumFractionDigits: 2 })}</p>
-                </div>
-
-                <div className="bg-white rounded-lg p-4 space-y-3">
-                  <div className="flex justify-between"><span className="text-gray-700">Total Invested:</span><span className="font-semibold">£{parseFloat(results.totalInvestment).toLocaleString('en-GB', { minimumFractionDigits: 2 })}</span></div>
-                  <div className="flex justify-between"><span className="text-gray-700">Total Gain:</span><span className="font-semibold text-green-600">£{parseFloat(results.totalGain).toLocaleString('en-GB', { minimumFractionDigits: 2 })}</span></div>
-                  <div className="flex justify-between"><span className="text-gray-700">Return on Investment:</span><span className="font-semibold text-green-600">{results.gainPercentage}%</span></div>
-                </div>
-
-                <div className="bg-blue-100 border border-blue-300 rounded-lg p-4">
-                  <p className="text-sm font-semibold text-blue-800">🚀 The power of compound interest: Your money works for you!</p>
-                </div>
+          <div className="grid md:grid-cols-2 gap-8">
+            <div className="space-y-6">
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-2">Initial Investment: £{initialInvestment.toLocaleString()}</label>
+                <input type="range" min="1000" max="100000" step="1000" value={initialInvestment} onChange={(e) => { setInitialInvestment(parseFloat(e.target.value)); calculateCompound() }} className="w-full h-2 bg-gray-300 rounded-lg appearance-none cursor-pointer" aria-label="Initial investment slider" />
+                <input type="number" value={initialInvestment} onChange={(e) => { setInitialInvestment(parseFloat(e.target.value) || 0); calculateCompound() }} className="w-full mt-2 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent" placeholder="Enter initial amount" aria-label="Initial investment input" />
               </div>
-            ) : (
-              <div className="bg-gray-100 rounded-lg p-8 text-center text-gray-600">
-                <p>Enter your details and click "Calculate Growth"</p>
+
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-2">Monthly Contribution: £{monthlyContribution.toLocaleString()}</label>
+                <input type="range" min="0" max="2000" step="50" value={monthlyContribution} onChange={(e) => { setMonthlyContribution(parseFloat(e.target.value)); calculateCompound() }} className="w-full h-2 bg-gray-300 rounded-lg appearance-none cursor-pointer" aria-label="Monthly contribution slider" />
+                <input type="number" value={monthlyContribution} onChange={(e) => { setMonthlyContribution(parseFloat(e.target.value) || 0); calculateCompound() }} className="w-full mt-2 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent" placeholder="Enter monthly amount" aria-label="Monthly contribution input" />
               </div>
-            )}
+
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-2">Annual Return (%): {annualRate.toFixed(2)}%</label>
+                <input type="range" min="1" max="15" step="0.1" value={annualRate} onChange={(e) => { setAnnualRate(parseFloat(e.target.value)); calculateCompound() }} className="w-full h-2 bg-gray-300 rounded-lg appearance-none cursor-pointer" aria-label="Annual return slider" />
+                <input type="number" value={annualRate} onChange={(e) => { setAnnualRate(parseFloat(e.target.value) || 0); calculateCompound() }} step="0.1" className="w-full mt-2 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent" placeholder="Enter annual return" aria-label="Annual return input" />
+              </div>
+
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-2">Time Period (Years): {years}</label>
+                <input type="range" min="1" max="50" step="1" value={years} onChange={(e) => { setYears(parseFloat(e.target.value)); calculateCompound() }} className="w-full h-2 bg-gray-300 rounded-lg appearance-none cursor-pointer" aria-label="Years slider" />
+                <input type="number" value={years} onChange={(e) => { setYears(parseFloat(e.target.value) || 0); calculateCompound() }} className="w-full mt-2 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent" placeholder="Enter years" aria-label="Years input" />
+              </div>
+
+              <button onClick={calculateCompound} className="w-full bg-primary-500 hover:bg-primary-600 text-white font-semibold py-3 rounded-lg transition">Calculate Growth</button>
+            </div>
+
+            <div className="space-y-4">
+              {results ? (
+                <div className="bg-gradient-to-br from-primary-50 to-primary-100 rounded-lg p-8 space-y-4">
+                  <div>
+                    <p className="text-sm text-gray-600">Final Portfolio Value</p>
+                    <p className="text-4xl font-bold text-primary-600">£{parseFloat(results.finalAmount).toLocaleString('en-GB', { minimumFractionDigits: 2 })}</p>
+                  </div>
+
+                  <div className="bg-white rounded-lg p-4 space-y-3">
+                    <div className="flex justify-between"><span className="text-gray-700">Total Invested:</span><span className="font-semibold">£{parseFloat(results.totalInvestment).toLocaleString('en-GB', { minimumFractionDigits: 2 })}</span></div>
+                    <div className="flex justify-between"><span className="text-gray-700">Total Gain:</span><span className="font-semibold text-green-600">£{parseFloat(results.totalGain).toLocaleString('en-GB', { minimumFractionDigits: 2 })}</span></div>
+                    <div className="flex justify-between"><span className="text-gray-700">Return on Investment:</span><span className="font-semibold text-green-600">{results.gainPercentage}%</span></div>
+                  </div>
+
+                  <div className="bg-blue-100 border border-blue-300 rounded-lg p-4">
+                    <p className="text-sm font-semibold text-blue-800">🚀 The power of compound interest: Your money works for you!</p>
+                  </div>
+                </div>
+              ) : (
+                <div className="bg-gray-100 rounded-lg p-8 text-center text-gray-600">
+                  <p>Enter your details and click "Calculate Growth"</p>
+                </div>
+              )}
+            </div>
           </div>
         </div>
 
@@ -326,12 +328,9 @@ export default function CompoundInterestCalculator() {
             <h2 className="text-2xl font-bold mb-3">Start Building Wealth Today</h2>
             <p className="mb-6">Calculate your compound interest and watch exponential growth. Start small, stay consistent, build wealth.</p>
             
-            <button 
-              onClick={() => document.querySelector('input')?.scrollIntoView({ behavior: 'smooth' })}
-              className="bg-white text-primary-600 font-semibold py-3 px-8 rounded-lg hover:bg-gray-100 transition"
-            >
-              Calculate Now
-            </button>
+            <div className="bg-white bg-opacity-10 p-6 rounded-lg">
+              <iframe src="https://app.smartsuite.com/form/sba974gi/l5qQJVsntQ?header=false" width="100%" height="350" frameBorder="0" title="SmartSuite Compound Interest Inquiry Form"></iframe>
+            </div>
           </section>
         </div>
 
@@ -343,3 +342,4 @@ export default function CompoundInterestCalculator() {
     </div>
   )
 }
+
