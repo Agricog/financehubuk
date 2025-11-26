@@ -6,10 +6,10 @@ import HomeInsuranceQuotePage from './pages/HomeInsuranceQuotePage'
 import CarInsuranceQuotePage from './pages/CarInsuranceQuotePage'
 import LifeInsuranceQuotePage from './pages/LifeInsuranceQuotePage'
 import PetInsuranceQuotePage from './pages/PetInsuranceQuotePage'
-import SavingsGoalCalculator from './pages/SavingsGoalCalculator'
-import BudgetPlannerCalculator from './pages/BudgetPlannerCalculator'
-import CreditCardPayoffCalculator from './pages/CreditCardPayoffCalculator'
-import InvestmentCalculator from './pages/InvestmentCalculator'
+import SavingsGoalCalculator from './components/SavingsGoalCalculator'
+import BudgetPlannerCalculator from './components/BudgetPlannerCalculator'
+import CreditCardPayoffCalculator from './components/CreditCardPayoffCalculator'
+import InvestmentCalculator from './components/InvestmentCalculator'
 import PrivacyPolicyPage from './pages/PrivacyPolicyPage'
 import TermsOfServicePage from './pages/TermsOfServicePage'
 import Navigation from './components/Navigation'
@@ -44,6 +44,7 @@ function App() {
 }
 
 export default App
+
 
 
 
