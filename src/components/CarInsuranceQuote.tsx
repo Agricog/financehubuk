@@ -197,7 +197,7 @@ export default function CarInsuranceQuotePage() {
               frameBorder="0"
               title="Car Insurance Quote Form"
               className="rounded-lg border border-gray-200"
-            ></iframe>
+            />
           </div>
         </div>
 
@@ -381,13 +381,13 @@ export default function CarInsuranceQuotePage() {
                 <h3 className="font-semibold text-gray-900 mb-2">Personal Loan Calculator</h3>
                 <p className="text-sm text-gray-700">Calculate monthly payments for personal loans</p>
               </Link>
-              <Link to="/" className="bg-purple-50 hover:bg-purple-100 border-l-4 border-purple-500 p-6 rounded transition">
+              <Link to="/calculators/home-insurance-quote" className="bg-purple-50 hover:bg-purple-100 border-l-4 border-purple-500 p-6 rounded transition">
                 <h3 className="font-semibold text-gray-900 mb-2">Home Insurance Quote</h3>
-                <p className="text-sm text-gray-700">Compare home insurance from leading providers (coming soon)</p>
+                <p className="text-sm text-gray-700">Compare home insurance from leading providers</p>
               </Link>
-              <Link to="/" className="bg-orange-50 hover:bg-orange-100 border-l-4 border-orange-500 p-6 rounded transition">
+              <Link to="/calculators/pet-insurance-quote" className="bg-orange-50 hover:bg-orange-100 border-l-4 border-orange-500 p-6 rounded transition">
                 <h3 className="font-semibold text-gray-900 mb-2">Pet Insurance Quote</h3>
-                <p className="text-sm text-gray-700">Get pet insurance quotes instantly (coming soon)</p>
+                <p className="text-sm text-gray-700">Get pet insurance quotes instantly</p>
               </Link>
             </div>
           </section>
@@ -396,19 +396,22 @@ export default function CarInsuranceQuotePage() {
             <h2 className="text-2xl font-bold mb-3">Get Your Free Car Insurance Quote Now</h2>
             <p className="mb-6">Compare personalized quotes from 100+ UK insurers instantly. Find the best deal for your vehicle and driving profile. Click below to get started.</p>
             
-            <button className="bg-white text-primary-600 font-semibold py-3 px-8 rounded-lg hover:bg-gray-100 transition">
+            <button 
+              onClick={() => document.querySelector('iframe')?.scrollIntoView({ behavior: 'smooth' })}
+              className="bg-white text-primary-600 font-semibold py-3 px-8 rounded-lg hover:bg-gray-100 transition"
+            >
               Get Free Quote
             </button>
           </section>
         </div>
 
         <div className="mt-12 pt-8 border-t border-gray-200 text-center text-sm text-gray-600">
-          <p>This tool provides estimates for informational purposes only. Actual insurance quotes depend on your specific vehicle, driving history, and personal circumstances.</p>
-          <p className="mt-2"><Link to="/privacy-policy" className="hover:underline">Privacy Policy</Link> | <Link to="/terms-of-service" className="hover:underline">Terms of Service</Link></p>
+          <p>This tool provides estimates for informational purposes only. Actual insurance quotes depend on your specific vehicle, driving history, and personal circumstances.</p
         </div>
       </div>
     </div>
   )
 }
+
 
 
