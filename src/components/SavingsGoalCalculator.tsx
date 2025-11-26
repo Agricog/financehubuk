@@ -1,8 +1,21 @@
-import { useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { ArrowLeft } from 'lucide-react'
 import { Link } from 'react-router-dom'
 
+interface SavingsResult {
+  monthsNeeded: string
+  yearsNeeded: string
+  totalWithInterest: string
+  totalInterestEarned: string
+}
+
 export default function SavingsGoalCalculatorPage() {
+  const [savingsGoal, setSavingsGoal] = useState(10000)
+  const [currentSavings, setCurrentSavings] = useState(2000)
+  const [monthlySavings, setMonthlySavings] = useState(500)
+  const [interestRate, setInterestRate] = useState(5.25)
+  const [results, setResults] = useState<SavingsResult | null>(null)
+
   useEffect(() => {
     document.title = 'Free Savings Goal Calculator UK | Calculate How Long to Save'
     
@@ -73,7 +86,30 @@ export default function SavingsGoalCalculatorPage() {
     })
     document.head.appendChild(schemaScript)
     window.scrollTo(0, 0)
+    calculateGoal()
   }, [])
+
+  const calculateGoal = () => {
+    let balance = currentSavings
+    const monthlyRate = interestRate / 100 / 12
+    let months = 0
+
+    while (balance < savingsGoal && months < 600) {
+      balance = balance * (1 + monthlyRate) + monthlySavings
+      months++
+    }
+
+    const years = (months / 12).toFixed(1)
+    const totalWithInterest = balance.toFixed(2)
+    const totalInterestEarned = (balance - currentSavings - (monthlySavings * months)).toFixed(2)
+
+    setResults({
+      monthsNeeded: months.toString(),
+      yearsNeeded: years,
+      totalWithInterest: totalWithInterest,
+      totalInterestEarned: totalInterestEarned
+    })
+  }
 
   return (
     <div className="min-h-screen bg-gray-50 py-12">
@@ -92,36 +128,61 @@ export default function SavingsGoalCalculatorPage() {
         <div className="bg-white rounded-xl shadow-lg p-8 mb-12">
           <h2 className="text-2xl font-bold text-gray-900 mb-6">Calculate Your Savings Timeline</h2>
           
-          <div className="mb-8">
-            <p className="text-gray-700 leading-relaxed mb-6">
-              Use our free savings goal calculator to discover how long it takes to reach your financial goals based on your target amount, current savings, and monthly contributions.
-            </p>
-            
-            <div className="bg-blue-50 border border-blue-200 rounded-lg p-6 space-y-4">
+          <div className="grid md:grid-cols-2 gap-8">
+            <div className="space-y-6">
               <div>
-                <label className="block text-sm font-semibold text-gray-900 mb-2">Your Savings Goal (£)</label>
-                <input type="number" placeholder="e.g., 10000" className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500" />
-              </div>
-
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-semibold text-gray-900 mb-2">Current Savings (£)</label>
-                  <input type="number" placeholder="e.g., 2000" className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500" />
-                </div>
-                <div>
-                  <label className="block text-sm font-semibold text-gray-900 mb-2">Monthly Savings (£)</label>
-                  <input type="number" placeholder="e.g., 500" className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500" />
-                </div>
+                <label className="block text-sm font-semibold text-gray-700 mb-2">Savings Goal: £{savingsGoal.toLocaleString()}</label>
+                <input type="range" min="1000" max="500000" step="5000" value={savingsGoal} onChange={(e) => { setSavingsGoal(parseFloat(e.target.value)); calculateGoal() }} className="w-full h-2 bg-gray-300 rounded-lg appearance-none cursor-pointer" aria-label="Savings goal slider" />
+                <input type="number" value={savingsGoal} onChange={(e) => { setSavingsGoal(parseFloat(e.target.value) || 0); calculateGoal() }} className="w-full mt-2 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent" placeholder="Enter savings goal" aria-label="Savings goal input" />
               </div>
 
               <div>
-                <label className="block text-sm font-semibold text-gray-900 mb-2">Interest Rate (% p.a.)</label>
-                <input type="number" placeholder="e.g., 5.25" step="0.01" className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500" />
+                <label className="block text-sm font-semibold text-gray-700 mb-2">Current Savings: £{currentSavings.toLocaleString()}</label>
+                <input type="range" min="0" max={savingsGoal * 0.5} step="1000" value={currentSavings} onChange={(e) => { setCurrentSavings(parseFloat(e.target.value)); calculateGoal() }} className="w-full h-2 bg-gray-300 rounded-lg appearance-none cursor-pointer" aria-label="Current savings slider" />
+                <input type="number" value={currentSavings} onChange={(e) => { setCurrentSavings(parseFloat(e.target.value) || 0); calculateGoal() }} className="w-full mt-2 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent" placeholder="Enter current savings" aria-label="Current savings input" />
               </div>
 
-              <button className="w-full bg-primary-500 text-white font-semibold py-3 rounded-lg hover:bg-primary-600 transition mt-6">
-                Calculate Savings Timeline
-              </button>
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-2">Monthly Savings: £{monthlySavings.toLocaleString()}</label>
+                <input type="range" min="50" max="5000" step="50" value={monthlySavings} onChange={(e) => { setMonthlySavings(parseFloat(e.target.value)); calculateGoal() }} className="w-full h-2 bg-gray-300 rounded-lg appearance-none cursor-pointer" aria-label="Monthly savings slider" />
+                <input type="number" value={monthlySavings} onChange={(e) => { setMonthlySavings(parseFloat(e.target.value) || 0); calculateGoal() }} className="w-full mt-2 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent" placeholder="Enter monthly savings" aria-label="Monthly savings input" />
+              </div>
+
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-2">Interest Rate (% p.a.): {interestRate.toFixed(2)}%</label>
+                <input type="range" min="0" max="10" step="0.25" value={interestRate} onChange={(e) => { setInterestRate(parseFloat(e.target.value)); calculateGoal() }} className="w-full h-2 bg-gray-300 rounded-lg appearance-none cursor-pointer" aria-label="Interest rate slider" />
+                <input type="number" value={interestRate} onChange={(e) => { setInterestRate(parseFloat(e.target.value) || 0); calculateGoal() }} step="0.01" className="w-full mt-2 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent" placeholder="Enter interest rate" aria-label="Interest rate input" />
+              </div>
+
+              <button onClick={calculateGoal} className="w-full bg-primary-500 hover:bg-primary-600 text-white font-semibold py-3 rounded-lg transition">Calculate Savings Timeline</button>
+            </div>
+
+            <div className="space-y-4">
+              {results ? (
+                <div className="bg-gradient-to-br from-primary-50 to-primary-100 rounded-lg p-8 space-y-4">
+                  <div>
+                    <p className="text-sm text-gray-600 mb-1">Time to Reach Goal</p>
+                    <p className="text-4xl font-bold text-primary-600">{results.monthsNeeded} months</p>
+                    <p className="text-lg text-gray-700 mt-1">≈ {results.yearsNeeded} years</p>
+                  </div>
+
+                  <div className="bg-white rounded-lg p-4 space-y-3">
+                    <div className="flex justify-between"><span className="text-gray-700">Savings Goal:</span><span className="font-semibold">£{savingsGoal.toLocaleString()}</span></div>
+                    <div className="flex justify-between"><span className="text-gray-700">Current Savings:</span><span className="font-semibold">£{currentSavings.toLocaleString()}</span></div>
+                    <div className="flex justify-between"><span className="text-gray-700">Monthly Contribution:</span><span className="font-semibold">£{monthlySavings.toLocaleString()}</span></div>
+                    <div className="flex justify-between"><span className="text-gray-700">Total Saved:</span><span className="font-semibold">£{(currentSavings + (monthlySavings * parseInt(results.monthsNeeded))).toLocaleString('en-GB', { minimumFractionDigits: 0 })}</span></div>
+                    <div className="flex justify-between"><span className="text-gray-700">Interest Earned:</span><span className="font-semibold text-green-600">£{parseFloat(results.totalInterestEarned).toLocaleString('en-GB', { minimumFractionDigits: 2 })}</span></div>
+                  </div>
+
+                  <div className="bg-green-100 border border-green-300 rounded-lg p-4">
+                    <p className="text-sm font-semibold text-green-800">✅ You'll reach your goal in {results.yearsNeeded} years with consistent savings!</p>
+                  </div>
+                </div>
+              ) : (
+                <div className="bg-gray-100 rounded-lg p-8 text-center text-gray-600">
+                  <p>Enter your savings details and click "Calculate Savings Timeline"</p>
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -264,20 +325,17 @@ export default function SavingsGoalCalculatorPage() {
             <h2 className="text-2xl font-bold mb-3">Start Saving Towards Your Goals Today</h2>
             <p className="mb-6">Use our free savings goal calculator to plan your financial future and discover how long it takes to reach your targets.</p>
             
-            <button 
-              onClick={() => document.querySelector('input')?.scrollIntoView({ behavior: 'smooth' })}
-              className="bg-white text-primary-600 font-semibold py-3 px-8 rounded-lg hover:bg-gray-100 transition"
-            >
-              Calculate Now
-            </button>
+            <div className="bg-white bg-opacity-10 p-6 rounded-lg">
+              <iframe src="https://app.smartsuite.com/form/sba974gi/l5qQJVsntQ?header=false" width="100%" height="350" frameBorder="0" title="SmartSuite Savings Goal Inquiry Form"></iframe>
+            </div>
           </section>
         </div>
 
         <div className="mt-12 pt-8 border-t border-gray-200 text-center text-sm text-gray-600">
           <p>This tool provides estimates for informational purposes only. Actual savings timelines depend on interest rates, inflation, and market conditions.</p>
-          <p className="mt-2"><Link to="/privacy-policy" className="hover:underline">Privacy Policy</Link> | <Link to="/terms-of-service" className="hover:underline">Terms of Service</Link></p>
         </div>
       </div>
     </div>
   )
 }
+
