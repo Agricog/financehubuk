@@ -10,6 +10,11 @@ import SavingsGoalCalculator from './components/SavingsGoalCalculator'
 import BudgetPlannerCalculator from './components/BudgetPlannerCalculator'
 import CreditCardPayoffCalculator from './components/CreditCardPayoffCalculator'
 import InvestmentCalculator from './components/InvestmentCalculator'
+import SavingsInterestCalculator from './components/SavingsInterestCalculator'
+import CompoundInterestCalculator from './components/CompoundInterestCalculator'
+import NetWorthCalculator from './components/NetWorthCalculator'
+import SavingsAccountComparison from './components/SavingsAccountComparison'
+import CurrencyConverter from './components/CurrencyConverter'
 import PrivacyPolicyPage from './pages/PrivacyPolicyPage'
 import TermsOfServicePage from './pages/TermsOfServicePage'
 import Navigation from './components/Navigation'
@@ -33,6 +38,11 @@ function App() {
             <Route path="/calculators/budget-planner-calculator" element={<BudgetPlannerCalculator />} />
             <Route path="/calculators/credit-card-payoff-calculator" element={<CreditCardPayoffCalculator />} />
             <Route path="/calculators/investment-calculator" element={<InvestmentCalculator />} />
+            <Route path="/calculators/savings-interest-calculator" element={<SavingsInterestCalculator />} />
+            <Route path="/calculators/compound-interest-calculator" element={<CompoundInterestCalculator />} />
+            <Route path="/calculators/net-worth-calculator" element={<NetWorthCalculator />} />
+            <Route path="/calculators/savings-account-comparison" element={<SavingsAccountComparison />} />
+            <Route path="/calculators/currency-converter" element={<CurrencyConverter />} />
             <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
             <Route path="/terms-of-service" element={<TermsOfServicePage />} />
           </Routes>
@@ -44,6 +54,7 @@ function App() {
 }
 
 export default App
+
 
 
 
