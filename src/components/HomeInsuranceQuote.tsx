@@ -410,12 +410,11 @@ export default function HomeInsuranceQuotePage() {
             <p className="mb-6">Compare personalized quotes from leading UK insurers instantly. Find the best buildings and contents insurance for your home. Click below to get started.</p>
             
             <button 
-  onClick={() => document.querySelector('iframe')?.scrollIntoView({ behavior: 'smooth' })}
-  className="bg-white text-primary-600 font-semibold py-3 px-8 rounded-lg hover:bg-gray-100 transition"
->
-  Get Free Quote
-</button>
-
+              onClick={() => document.querySelector('iframe')?.scrollIntoView({ behavior: 'smooth' })}
+              className="bg-white text-primary-600 font-semibold py-3 px-8 rounded-lg hover:bg-gray-100 transition"
+            >
+              Get Free Quote
+            </button>
           </section>
         </div>
 
