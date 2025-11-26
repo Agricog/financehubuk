@@ -1,8 +1,35 @@
-import { useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { ArrowLeft } from 'lucide-react'
 import { Link } from 'react-router-dom'
 
+interface BudgetResults {
+  needs: string
+  wants: string
+  savings: string
+  total: string
+  needsPercentage: string
+  wantsPercentage: string
+  savingsPercentage: string
+  remaining: string
+}
+
 export default function BudgetPlannerCalculatorPage() {
+  const [income, setIncome] = useState(3000)
+  
+  // Needs
+  const [rent, setRent] = useState(800)
+  const [utilities, setUtilities] = useState(150)
+  const [groceries, setGroceries] = useState(300)
+  const [transport, setTransport] = useState(100)
+  
+  // Wants
+  const [entertainment, setEntertainment] = useState(100)
+  const [diningOut, setDiningOut] = useState(150)
+  const [subscriptions, setSubscriptions] = useState(30)
+  const [shopping, setShopping] = useState(100)
+  
+  const [results, setResults] = useState<BudgetResults | null>(null)
+
   useEffect(() => {
     document.title = 'Free Budget Planner Calculator UK | Plan Your Monthly Budget'
     
@@ -73,7 +100,35 @@ export default function BudgetPlannerCalculatorPage() {
     })
     document.head.appendChild(schemaScript)
     window.scrollTo(0, 0)
+    calculateBudget()
   }, [])
+
+  const calculateBudget = () => {
+    const totalNeeds = rent + utilities + groceries + transport
+    const totalWants = entertainment + diningOut + subscriptions + shopping
+    const totalExpenses = totalNeeds + totalWants
+    const totalSavings = income - totalExpenses
+    const remaining = income - totalExpenses
+
+    const needsPercentage = ((totalNeeds / income) * 100).toFixed(1)
+    const wantsPercentage = ((totalWants / income) * 100).toFixed(1)
+    const savingsPercentage = ((totalSavings / income) * 100).toFixed(1)
+
+    setResults({
+      needs: totalNeeds.toFixed(2),
+      wants: totalWants.toFixed(2),
+      savings: totalSavings.toFixed(2),
+      total: totalExpenses.toFixed(2),
+      needsPercentage: needsPercentage,
+      wantsPercentage: wantsPercentage,
+      savingsPercentage: savingsPercentage,
+      remaining: remaining.toFixed(2)
+    })
+  }
+
+  const handleCalculate = () => {
+    calculateBudget()
+  }
 
   return (
     <div className="min-h-screen bg-gray-50 py-12">
@@ -92,40 +147,105 @@ export default function BudgetPlannerCalculatorPage() {
         <div className="bg-white rounded-xl shadow-lg p-8 mb-12">
           <h2 className="text-2xl font-bold text-gray-900 mb-6">Create Your Monthly Budget</h2>
           
-          <div className="mb-8">
-            <p className="text-gray-700 leading-relaxed mb-6">
-              Plan your monthly budget by entering your income and expenses. Our calculator shows where your money goes and helps you identify areas to save.
-            </p>
-            
-            <div className="bg-blue-50 border border-blue-200 rounded-lg p-6 space-y-6">
+          <div className="grid md:grid-cols-3 gap-8">
+            <div className="md:col-span-2 space-y-6">
               <div>
-                <label className="block text-sm font-semibold text-gray-900 mb-2">Monthly Gross Income (£)</label>
-                <input type="number" placeholder="e.g., 3000" className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500" />
+                <label className="block text-sm font-semibold text-gray-700 mb-2">Monthly Gross Income: £{income.toLocaleString()}</label>
+                <input type="range" min="1000" max="10000" step="500" value={income} onChange={(e) => { setIncome(parseFloat(e.target.value)); calculateBudget() }} className="w-full h-2 bg-gray-300 rounded-lg appearance-none cursor-pointer" aria-label="Income slider" />
+                <input type="number" value={income} onChange={(e) => { setIncome(parseFloat(e.target.value) || 0); calculateBudget() }} className="w-full mt-2 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent" placeholder="Enter monthly income" aria-label="Income input" />
               </div>
 
               <div className="border-t pt-4">
-                <h4 className="font-semibold text-gray-900 mb-3">NEEDS (50%)</h4>
+                <h4 className="font-semibold text-gray-900 mb-3 text-green-600">NEEDS (50%) - Essential Expenses</h4>
                 <div className="space-y-3">
-                  <div><label className="text-sm text-gray-700">Rent/Mortgage (£)</label><input type="number" placeholder="e.g., 800" className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 text-sm mt-1" /></div>
-                  <div><label className="text-sm text-gray-700">Utilities (£)</label><input type="number" placeholder="e.g., 150" className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 text-sm mt-1" /></div>
-                  <div><label className="text-sm text-gray-700">Groceries (£)</label><input type="number" placeholder="e.g., 300" className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 text-sm mt-1" /></div>
-                  <div><label className="text-sm text-gray-700">Transport (£)</label><input type="number" placeholder="e.g., 100" className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 text-sm mt-1" /></div>
+                  <div>
+                    <label className="text-sm text-gray-700">Rent/Mortgage: £{rent.toLocaleString()}</label>
+                    <input type="number" value={rent} onChange={(e) => { setRent(parseFloat(e.target.value) || 0); calculateBudget() }} className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 text-sm mt-1" placeholder="e.g., 800" />
+                  </div>
+                  <div>
+                    <label className="text-sm text-gray-700">Utilities: £{utilities.toLocaleString()}</label>
+                    <input type="number" value={utilities} onChange={(e) => { setUtilities(parseFloat(e.target.value) || 0); calculateBudget() }} className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 text-sm mt-1" placeholder="e.g., 150" />
+                  </div>
+                  <div>
+                    <label className="text-sm text-gray-700">Groceries: £{groceries.toLocaleString()}</label>
+                    <input type="number" value={groceries} onChange={(e) => { setGroceries(parseFloat(e.target.value) || 0); calculateBudget() }} className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 text-sm mt-1" placeholder="e.g., 300" />
+                  </div>
+                  <div>
+                    <label className="text-sm text-gray-700">Transport: £{transport.toLocaleString()}</label>
+                    <input type="number" value={transport} onChange={(e) => { setTransport(parseFloat(e.target.value) || 0); calculateBudget() }} className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 text-sm mt-1" placeholder="e.g., 100" />
+                  </div>
                 </div>
               </div>
 
               <div className="border-t pt-4">
-                <h4 className="font-semibold text-gray-900 mb-3">WANTS (30%)</h4>
+                <h4 className="font-semibold text-gray-900 mb-3 text-blue-600">WANTS (30%) - Discretionary Spending</h4>
                 <div className="space-y-3">
-                  <div><label className="text-sm text-gray-700">Entertainment (£)</label><input type="number" placeholder="e.g., 100" className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 text-sm mt-1" /></div>
-                  <div><label className="text-sm text-gray-700">Dining Out (£)</label><input type="number" placeholder="e.g., 150" className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 text-sm mt-1" /></div>
-                  <div><label className="text-sm text-gray-700">Subscriptions (£)</label><input type="number" placeholder="e.g., 30" className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 text-sm mt-1" /></div>
-                  <div><label className="text-sm text-gray-700">Shopping (£)</label><input type="number" placeholder="e.g., 100" className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 text-sm mt-1" /></div>
+                  <div>
+                    <label className="text-sm text-gray-700">Entertainment: £{entertainment.toLocaleString()}</label>
+                    <input type="number" value={entertainment} onChange={(e) => { setEntertainment(parseFloat(e.target.value) || 0); calculateBudget() }} className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 text-sm mt-1" placeholder="e.g., 100" />
+                  </div>
+                  <div>
+                    <label className="text-sm text-gray-700">Dining Out: £{diningOut.toLocaleString()}</label>
+                    <input type="number" value={diningOut} onChange={(e) => { setDiningOut(parseFloat(e.target.value) || 0); calculateBudget() }} className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 text-sm mt-1" placeholder="e.g., 150" />
+                  </div>
+                  <div>
+                    <label className="text-sm text-gray-700">Subscriptions: £{subscriptions.toLocaleString()}</label>
+                    <input type="number" value={subscriptions} onChange={(e) => { setSubscriptions(parseFloat(e.target.value) || 0); calculateBudget() }} className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 text-sm mt-1" placeholder="e.g., 30" />
+                  </div>
+                  <div>
+                    <label className="text-sm text-gray-700">Shopping: £{shopping.toLocaleString()}</label>
+                    <input type="number" value={shopping} onChange={(e) => { setShopping(parseFloat(e.target.value) || 0); calculateBudget() }} className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 text-sm mt-1" placeholder="e.g., 100" />
+                  </div>
                 </div>
               </div>
 
-              <button className="w-full bg-primary-500 text-white font-semibold py-3 rounded-lg hover:bg-primary-600 transition mt-6">
-                Calculate Budget
-              </button>
+              <button onClick={handleCalculate} className="w-full bg-primary-500 hover:bg-primary-600 text-white font-semibold py-3 rounded-lg transition">Calculate Budget</button>
+            </div>
+
+            <div>
+              {results ? (
+                <div className="bg-gradient-to-br from-primary-50 to-primary-100 rounded-lg p-6 space-y-4 sticky top-20">
+                  <div className="text-center">
+                    <p className="text-xs text-gray-600 mb-1">Monthly Income</p>
+                    <p className="text-2xl font-bold text-primary-600">£{income.toLocaleString()}</p>
+                  </div>
+
+                  <div className="bg-white rounded-lg p-4 space-y-3 text-sm">
+                    <div className="flex justify-between items-center pb-2 border-b">
+                      <span className="text-gray-700">Needs</span>
+                      <div className="text-right">
+                        <p className="font-semibold">£{parseFloat(results.needs).toLocaleString('en-GB', { minimumFractionDigits: 0 })}</p>
+                        <p className="text-xs text-gray-600">{results.needsPercentage}%</p>
+                      </div>
+                    </div>
+                    <div className="flex justify-between items-center pb-2 border-b">
+                      <span className="text-gray-700">Wants</span>
+                      <div className="text-right">
+                        <p className="font-semibold">£{parseFloat(results.wants).toLocaleString('en-GB', { minimumFractionDigits: 0 })}</p>
+                        <p className="text-xs text-gray-600">{results.wantsPercentage}%</p>
+                      </div>
+                    </div>
+                    <div className="flex justify-between items-center pb-2 border-b">
+                      <span className="text-gray-700">Savings</span>
+                      <div className="text-right">
+                        <p className="font-semibold text-green-600">£{parseFloat(results.remaining).toLocaleString('en-GB', { minimumFractionDigits: 0 })}</p>
+                        <p className="text-xs text-gray-600">{results.savingsPercentage}%</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className={`p-3 rounded text-center text-sm font-semibold ${parseFloat(results.remaining) > 0 ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
+                    {parseFloat(results.remaining) > 0 ? `✅ Savings: £${parseFloat(results.remaining).toLocaleString('en-GB', { minimumFractionDigits: 0 })}` : `⚠️ Over budget by £${Math.abs(parseFloat(results.remaining)).toLocaleString('en-GB', { minimumFractionDigits: 0 })}`}
+                  </div>
+
+                  {parseFloat(results.needsPercentage) > 50 && <p className="text-xs text-orange-700 bg-orange-100 p-2 rounded">⚠️ Needs exceed 50% - consider reducing housing/essential costs</p>}
+                  {parseFloat(results.wantsPercentage) > 30 && <p className="text-xs text-orange-700 bg-orange-100 p-2 rounded">⚠️ Wants exceed 30% - reduce discretionary spending</p>}
+                </div>
+              ) : (
+                <div className="bg-gray-100 rounded-lg p-6 text-center text-gray-600 h-full flex items-center justify-center">
+                  <p>Enter your details and calculate</p>
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -134,12 +254,12 @@ export default function BudgetPlannerCalculatorPage() {
           <section>
             <h2 className="text-2xl font-bold text-gray-900 mb-4">The 50/30/20 Budgeting Rule Explained</h2>
             <div className="space-y-4">
-              <div className="bg-blue-50 border-l-4 border-primary-500 p-6 rounded">
+              <div className="bg-green-50 border-l-4 border-green-500 p-6 rounded">
                 <h3 className="font-semibold text-gray-900 mb-2">50% - Needs (Essentials)</h3>
                 <p className="text-gray-700 text-sm">Rent/mortgage, utilities, groceries, transport, insurance. Basic expenses to survive and function. Should never exceed 50% of after-tax income.</p>
               </div>
 
-              <div className="bg-green-50 border-l-4 border-green-500 p-6 rounded">
+              <div className="bg-blue-50 border-l-4 border-blue-500 p-6 rounded">
                 <h3 className="font-semibold text-gray-900 mb-2">30% - Wants (Discretionary)</h3>
                 <p className="text-gray-700 text-sm">Entertainment, dining out, shopping, subscriptions, hobbies. Non-essential spending that improves quality of life but isn't necessary.</p>
               </div>
@@ -290,12 +410,9 @@ export default function BudgetPlannerCalculatorPage() {
             <h2 className="text-2xl font-bold mb-3">Plan Your Budget Today</h2>
             <p className="mb-6">Create your monthly budget and take control of your finances. Track income, expenses, and savings instantly.</p>
             
-            <button 
-              onClick={() => document.querySelector('input')?.scrollIntoView({ behavior: 'smooth' })}
-              className="bg-white text-primary-600 font-semibold py-3 px-8 rounded-lg hover:bg-gray-100 transition"
-            >
-              Create Budget
-            </button>
+            <div className="bg-white bg-opacity-10 p-6 rounded-lg">
+              <iframe src="https://app.smartsuite.com/form/sba974gi/l5qQJVsntQ?header=false" width="100%" height="350" frameBorder="0" title="SmartSuite Budget Planner Inquiry Form"></iframe>
+            </div>
           </section>
         </div>
 
@@ -307,3 +424,4 @@ export default function BudgetPlannerCalculatorPage() {
     </div>
   )
 }
+
