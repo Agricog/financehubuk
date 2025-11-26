@@ -547,22 +547,8 @@ export default function MortgageCalculatorPage() {
             <h2 className="text-2xl font-bold mb-3">Get Expert Mortgage Advice</h2>
             <p className="mb-6">Connect with qualified mortgage advisors who can help you find the best deal for your situation.</p>
             
-            {formSubmitted && (
-              <div className="bg-green-500 text-white p-4 rounded-lg mb-4">
-                ✓ Thank you! Your mortgage inquiry has been submitted. We'll contact you within 24 hours.
-              </div>
-            )}
-
             <div className="bg-white bg-opacity-10 p-6 rounded-lg">
-              <iframe src="https://app.smartsuite.com/form/sba974gi/l5qQJVsntQ?header=false" width="100%" height="600" frameBorder="0" title="SmartSuite Mortgage Inquiry Form"></iframe>
-              
-              <p className="text-sm mt-6 mb-4">Or fill out the form below:</p>
-              <form onSubmit={handleFormSubmit} className="space-y-3">
-                <input type="text" placeholder="Your Name" value={formData.name} onChange={(e) => setFormData({...formData, name: e.target.value})} className="w-full px-4 py-2 rounded text-gray-900 placeholder-gray-600" required aria-label="Name" />
-                <input type="email" placeholder="Your Email" value={formData.email} onChange={(e) => setFormData({...formData, email: e.target.value})} className="w-full px-4 py-2 rounded text-gray-900 placeholder-gray-600" required aria-label="Email" />
-                <input type="tel" placeholder="Your Phone (optional)" value={formData.phone} onChange={(e) => setFormData({...formData, phone: e.target.value})} className="w-full px-4 py-2 rounded text-gray-900 placeholder-gray-600" aria-label="Phone" />
-                <button type="submit" className="w-full bg-white text-primary-600 font-semibold py-2 rounded-lg hover:bg-gray-100 transition">Get Free Mortgage Quotes</button>
-              </form>
+              <iframe src="https://app.smartsuite.com/form/sba974gi/l5qQJVsntQ?header=false" width="100%" height="350" frameBorder="0" title="SmartSuite Mortgage Inquiry Form"></iframe>
             </div>
           </section>
         </div>
@@ -575,6 +561,7 @@ export default function MortgageCalculatorPage() {
     </div>
   )
 }
+
 
 
 
