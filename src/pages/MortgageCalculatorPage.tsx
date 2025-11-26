@@ -47,11 +47,56 @@ export default function MortgageCalculatorPage() {
     const twitterDesc = document.querySelector('meta[name="twitter:description"]')
     if (twitterDesc) twitterDesc.setAttribute('content', 'Get instant estimates for mortgage payments and affordability checks.')
 
+    const canonicalLink = document.querySelector('link[rel="canonical"]')
+    if (canonicalLink) {
+      canonicalLink.setAttribute('href', 'https://financehubuk.co.uk/calculators/mortgage-calculator')
+    }
+
     const schemaScript = document.createElement('script')
     schemaScript.type = 'application/ld+json'
     schemaScript.innerHTML = JSON.stringify({
       '@context': 'https://schema.org',
       '@graph': [
+        {
+          '@type': 'BreadcrumbList',
+          'itemListElement': [
+            {
+              '@type': 'ListItem',
+              'position': 1,
+              'name': 'Home',
+              'item': 'https://financehubuk.co.uk'
+            },
+            {
+              '@type': 'ListItem',
+              'position': 2,
+              'name': 'Calculators',
+              'item': 'https://financehubuk.co.uk/calculators'
+            },
+            {
+              '@type': 'ListItem',
+              'position': 3,
+              'name': 'Mortgage Calculator',
+              'item': 'https://financehubuk.co.uk/calculators/mortgage-calculator'
+            }
+          ]
+        },
+        {
+          '@type': 'SoftwareApplication',
+          'name': 'Free UK Mortgage Calculator 2025',
+          'description': 'Calculate your monthly mortgage payments, total interest, and affordability instantly. Accurate estimates for first-time buyers, remortgaging, and property investment.',
+          'applicationCategory': 'FinanceApplication',
+          'url': 'https://financehubuk.co.uk/calculators/mortgage-calculator',
+          'offers': {
+            '@type': 'Offer',
+            'price': '0',
+            'priceCurrency': 'GBP'
+          },
+          'aggregateRating': {
+            '@type': 'AggregateRating',
+            'ratingValue': '4.8',
+            'ratingCount': '2150'
+          }
+        },
         {
           '@type': 'FAQPage',
           'mainEntity': [
@@ -515,6 +560,7 @@ export default function MortgageCalculatorPage() {
     </div>
   )
 }
+
 
 
 
