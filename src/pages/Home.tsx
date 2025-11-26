@@ -283,7 +283,7 @@ export default function Home() {
               to="/calculators/savings-goal-calculator"
               className="bg-white border-2 border-gray-200 rounded-xl p-6 hover:shadow-xl hover:border-primary-500 transition group"
             >
-              <div className="text-4xl mb-4">💰</div>
+              <div className="text-4xl mb-4">💷</div>
               <h3 className="text-xl font-bold text-gray-900 mb-3">Savings Goal Calculator</h3>
               <p className="text-gray-600 text-sm mb-4">
                 Calculate how long it takes to reach your savings goals and plan your future.
