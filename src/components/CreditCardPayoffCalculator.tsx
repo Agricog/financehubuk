@@ -365,20 +365,17 @@ export default function CreditCardPayoffCalculator() {
             <h2 className="text-2xl font-bold mb-3">Get Help with Credit Card Debt Today</h2>
             <p className="mb-6">Calculate your payoff timeline and start your journey to being debt-free. Every payment brings you closer to freedom.</p>
             
-            <button 
-              onClick={() => document.querySelector('input')?.scrollIntoView({ behavior: 'smooth' })}
-              className="bg-white text-primary-600 font-semibold py-3 px-8 rounded-lg hover:bg-gray-100 transition"
-            >
-              Calculate Now
-            </button>
+            <div className="bg-white bg-opacity-10 p-6 rounded-lg">
+              <iframe src="https://app.smartsuite.com/form/sba974gi/l5qQJVsntQ?header=false" width="100%" height="350" frameBorder="0" title="SmartSuite Credit Card Payoff Inquiry Form"></iframe>
+            </div>
           </section>
         </div>
 
         <div className="mt-12 pt-8 border-t border-gray-200 text-center text-sm text-gray-600">
-          <p>This calculator provides estimates for informational purposes only. Actual payoff timelines depend on your card terms and personal circumstances.</p>
-          <p className="mt-2"><Link to="/privacy-policy" className="hover:underline">Privacy Policy</Link> | <Link to="/terms-of-service" className="hover:underline">Terms of Service</Link></p>
+          <p>This calculator provides estimates for informational purposes only. Actual payoff timelines depend on your card terms and personal circumstances.</p
         </div>
       </div>
     </div>
   )
 }
+
