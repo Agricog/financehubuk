@@ -279,7 +279,7 @@ export default function BudgetPlannerCalculatorPage() {
                 <h3 className="font-semibold text-gray-900 mb-2">Investment Calculator</h3>
                 <p className="text-sm text-gray-700">Calculate investment growth and returns</p>
               </Link>
-              <Link to="/calculators/personal-loan-calculator" className="bg-orange-50 hover:bg-orange-100 border-l-4 border-orange-500 p-6 rounded transition">
+              <Link to="/calculators/loan-calculator" className="bg-orange-50 hover:bg-orange-100 border-l-4 border-orange-500 p-6 rounded transition">
                 <h3 className="font-semibold text-gray-900 mb-2">Personal Loan Calculator</h3>
                 <p className="text-sm text-gray-700">Calculate loan payments and affordability</p>
               </Link>
