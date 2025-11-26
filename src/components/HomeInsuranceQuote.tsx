@@ -193,7 +193,7 @@ export default function HomeInsuranceQuotePage() {
             <iframe
               src="https://app.smartsuite.com/form/sba974gi/l5qQJVsntQ?header=false&Prefill_Registration+Source=Home-Insurance"
               width="100%"
-              height="600"
+              height="350"
               frameBorder="0"
               title="Home Insurance Quote Form"
               className="rounded-lg border border-gray-200"
