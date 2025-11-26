@@ -409,15 +409,18 @@ export default function HomeInsuranceQuotePage() {
             <h2 className="text-2xl font-bold mb-3">Get Your Free Home Insurance Quote Now</h2>
             <p className="mb-6">Compare personalized quotes from leading UK insurers instantly. Find the best buildings and contents insurance for your home. Click below to get started.</p>
             
-            <button className="bg-white text-primary-600 font-semibold py-3 px-8 rounded-lg hover:bg-gray-100 transition">
-              Get Free Quote
-            </button>
+            <button 
+  onClick={() => document.querySelector('iframe')?.scrollIntoView({ behavior: 'smooth' })}
+  className="bg-white text-primary-600 font-semibold py-3 px-8 rounded-lg hover:bg-gray-100 transition"
+>
+  Get Free Quote
+</button>
+
           </section>
         </div>
 
         <div className="mt-12 pt-8 border-t border-gray-200 text-center text-sm text-gray-600">
-          <p>This tool provides estimates for informational purposes only. Actual insurance quotes depend on your specific property, location, and personal circumstances.</p>
-          <p className="mt-2"><Link to="/privacy-policy" className="hover:underline">Privacy Policy</Link> | <Link to="/terms-of-service" className="hover:underline">Terms of Service</Link></p>
+          <p>This tool provides estimates for informational purposes only. Actual insurance quotes depend on your specific property, location, and personal circumstances.</p
         </div>
       </div>
     </div>
