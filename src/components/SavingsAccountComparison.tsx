@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { ArrowLeft, TrendingUp } from 'lucide-react'
+import { ArrowLeft } from 'lucide-react'
 import { Link } from 'react-router-dom'
 
 interface SavingsAccount {
@@ -263,3 +263,4 @@ export default function SavingsAccountComparison() {
     </div>
   )
 }
+
