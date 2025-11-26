@@ -17,8 +17,6 @@ export default function MortgageCalculatorPage() {
   const [interestRate, setInterestRate] = useState(5)
   const [loanTerm, setLoanTerm] = useState(25)
   const [results, setResults] = useState<MortgageResults | null>(null)
-  const [formData, setFormData] = useState({ name: '', email: '', phone: '' })
-  const [formSubmitted, setFormSubmitted] = useState(false)
 
   useEffect(() => {
     document.title = 'Free UK Mortgage Calculator 2025 | Calculate Monthly Payments & Interest'
@@ -182,50 +180,6 @@ export default function MortgageCalculatorPage() {
         monthly_payment: monthlyPayment.toFixed(2)
       })
     }
-  }
-
-  const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    
-    if (typeof window !== 'undefined' && (window as any).gtag) {
-      (window as any).gtag('event', 'form_submission', {
-        form_name: 'mortgage_inquiry',
-        monthly_payment: results?.monthlyPayment || 0,
-        total_interest: results?.totalInterest || 0
-      })
-    }
-
-    try {
-      const smartSuitePayload = {
-        name: formData.name,
-        email: formData.email,
-        phone: formData.phone,
-        property_price: propertyPrice,
-        deposit: deposit,
-        interest_rate: interestRate,
-        loan_term: loanTerm,
-        monthly_payment: results?.monthlyPayment || 0,
-        total_interest: results?.totalInterest || 0,
-        ltv_ratio: results?.ltvRatio || 0,
-        timestamp: new Date().toISOString()
-      }
-
-      await fetch('https://app.smartsuite.com/api/form/sba974gi/l5qQJVsntQ', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(smartSuitePayload)
-      }).catch(() => {
-        console.log('SmartSuite submission attempted')
-      })
-    } catch (error) {
-      console.error('Form submission error:', error)
-    }
-
-    setFormSubmitted(true)
-    setFormData({ name: '', email: '', phone: '' })
-    setTimeout(() => setFormSubmitted(false), 5000)
   }
 
   return (
