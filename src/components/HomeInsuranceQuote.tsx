@@ -193,11 +193,11 @@ export default function HomeInsuranceQuotePage() {
             <iframe
               src="https://app.smartsuite.com/form/sba974gi/l5qQJVsntQ?header=false&Prefill_Registration+Source=Home-Insurance"
               width="100%"
-              height="350"
+              height="600"
               frameBorder="0"
               title="Home Insurance Quote Form"
               className="rounded-lg border border-gray-200"
-            ></iframe>
+            />
           </div>
         </div>
 
@@ -398,9 +398,9 @@ export default function HomeInsuranceQuotePage() {
                 <h3 className="font-semibold text-gray-900 mb-2">Car Insurance Quote</h3>
                 <p className="text-sm text-gray-700">Compare car insurance quotes from top providers</p>
               </Link>
-              <Link to="/" className="bg-orange-50 hover:bg-orange-100 border-l-4 border-orange-500 p-6 rounded transition">
+              <Link to="/calculators/pet-insurance-quote" className="bg-orange-50 hover:bg-orange-100 border-l-4 border-orange-500 p-6 rounded transition">
                 <h3 className="font-semibold text-gray-900 mb-2">Pet Insurance Quote</h3>
-                <p className="text-sm text-gray-700">Get pet insurance quotes instantly (coming soon)</p>
+                <p className="text-sm text-gray-700">Get pet insurance quotes instantly</p>
               </Link>
             </div>
           </section>
@@ -419,10 +419,12 @@ export default function HomeInsuranceQuotePage() {
         </div>
 
         <div className="mt-12 pt-8 border-t border-gray-200 text-center text-sm text-gray-600">
-          <p>This tool provides estimates for informational purposes only. Actual insurance quotes depend on your specific property, location, and personal circumstances.</p
+          <p>This tool provides estimates for informational purposes only. Actual insurance quotes depend on your specific property, location, and personal circumstances.</p>
+          <p className="mt-2"><Link to="/privacy-policy" className="hover:underline">Privacy Policy</Link> | <Link to="/terms-of-service" className="hover:underline">Terms of Service</Link></p>
         </div>
       </div>
     </div>
   )
 }
+
 
