@@ -12,7 +12,6 @@ export default function SavingsInterestCalculator() {
   const [principalAmount, setPrincipalAmount] = useState(10000)
   const [annualRate, setAnnualRate] = useState(4.5)
   const [years, setYears] = useState(5)
-  const [compounding, setCompounding] = useState('annually')
   const [results, setResults] = useState<InterestResults | null>(null)
 
   useEffect(() => {
@@ -91,23 +90,8 @@ export default function SavingsInterestCalculator() {
   const calculateInterest = () => {
     let finalAmount = principalAmount
     const rate = annualRate / 100
-    let compoundingPeriods = 1
 
-    switch(compounding) {
-      case 'monthly':
-        compoundingPeriods = 12
-        break
-      case 'quarterly':
-        compoundingPeriods = 4
-        break
-      case 'semi-annually':
-        compoundingPeriods = 2
-        break
-      default:
-        compoundingPeriods = 1
-    }
-
-    finalAmount = principalAmount * Math.pow(1 + rate / compoundingPeriods, compoundingPeriods * years)
+    finalAmount = principalAmount * (1 + rate * years)
     const totalInterest = finalAmount - principalAmount
     const interestPercentage = ((totalInterest / principalAmount) * 100).toFixed(2)
 
@@ -153,16 +137,6 @@ export default function SavingsInterestCalculator() {
                 <label className="block text-sm font-semibold text-gray-700 mb-2">Time Period (Years): {years}</label>
                 <input type="range" min="1" max="50" step="1" value={years} onChange={(e) => { setYears(parseFloat(e.target.value)); calculateInterest() }} className="w-full h-2 bg-gray-300 rounded-lg appearance-none cursor-pointer" aria-label="Years slider" />
                 <input type="number" value={years} onChange={(e) => { setYears(parseFloat(e.target.value) || 0); calculateInterest() }} className="w-full mt-2 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent" placeholder="Enter years" aria-label="Years input" />
-              </div>
-
-              <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">Compounding Frequency</label>
-                <select value={compounding} onChange={(e) => { setCompounding(e.target.value); calculateInterest() }} className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent">
-                  <option value="annually">Annually</option>
-                  <option value="semi-annually">Semi-Annually</option>
-                  <option value="quarterly">Quarterly</option>
-                  <option value="monthly">Monthly</option>
-                </select>
               </div>
 
               <button onClick={calculateInterest} className="w-full bg-primary-500 hover:bg-primary-600 text-white font-semibold py-3 rounded-lg transition">Calculate Interest</button>
@@ -309,15 +283,12 @@ export default function SavingsInterestCalculator() {
           </section>
 
           <section className="bg-gradient-to-r from-primary-500 to-primary-600 text-white rounded-xl p-8">
-            <h2 className="text-2xl font-bold mb-3">Start Saving & Earning Interest Today</h2>
-            <p className="mb-6">Calculate your savings interest and watch your money grow. Find the best rates and start building wealth.</p>
+            <h2 className="text-2xl font-bold mb-3">Maximize Your Savings Interest</h2>
+            <p className="mb-6">Connect with savings experts who can help you find the best rates and accounts for your financial goals.</p>
             
-            <button 
-              onClick={() => document.querySelector('input')?.scrollIntoView({ behavior: 'smooth' })}
-              className="bg-white text-primary-600 font-semibold py-3 px-8 rounded-lg hover:bg-gray-100 transition"
-            >
-              Calculate Now
-            </button>
+            <div className="bg-white bg-opacity-10 p-6 rounded-lg">
+              <iframe src="https://app.smartsuite.com/form/sba974gi/l5qQJVsntQ?header=false" width="100%" height="350" frameBorder="0" title="SmartSuite Savings Interest Inquiry Form"></iframe>
+            </div>
           </section>
         </div>
 
@@ -329,3 +300,4 @@ export default function SavingsInterestCalculator() {
     </div>
   )
 }
+
