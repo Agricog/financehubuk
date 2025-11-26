@@ -7,11 +7,127 @@ export default function Home() {
     
     const metaDescription = document.querySelector('meta[name="description"]')
     if (metaDescription) {
-      metaDescription.setAttribute(
-        'content',
-        'Free UK financial calculators for mortgages, insurance, loans & more. Compare quotes from top providers instantly. No signup required.'
-      )
+      metaDescription.setAttribute('content', 'Free UK financial calculators for mortgages, insurance, loans & more. Compare quotes from top providers instantly. No signup required. Save up to 50% on premiums.')
     }
+
+    const ogTitle = document.querySelector('meta[property="og:title"]')
+    if (ogTitle) ogTitle.setAttribute('content', 'Finance Hub UK - Free Financial Calculators & Quote Comparison')
+    
+    const ogDesc = document.querySelector('meta[property="og:description"]')
+    if (ogDesc) ogDesc.setAttribute('content', 'Compare quotes and calculate costs instantly with our free UK financial calculators. Mortgage, insurance, loans & more. No signup needed.')
+    
+    const ogUrl = document.querySelector('meta[property="og:url"]')
+    if (ogUrl) ogUrl.setAttribute('content', 'https://financehubuk.co.uk')
+
+    const ogImage = document.querySelector('meta[property="og:image"]')
+    if (ogImage) ogImage.setAttribute('content', 'https://financehubuk.co.uk/images/og-image.jpg')
+
+    const twitterCard = document.querySelector('meta[name="twitter:card"]')
+    if (twitterCard) twitterCard.setAttribute('content', 'summary_large_image')
+
+    const twitterTitle = document.querySelector('meta[name="twitter:title"]')
+    if (twitterTitle) twitterTitle.setAttribute('content', 'Finance Hub UK - Free Financial Calculators')
+
+    const twitterDesc = document.querySelector('meta[name="twitter:description"]')
+    if (twitterDesc) twitterDesc.setAttribute('content', 'Compare quotes and calculate costs instantly. Mortgage, insurance, loans & more.')
+
+    const canonicalLink = document.querySelector('link[rel="canonical"]')
+    if (canonicalLink) {
+      canonicalLink.setAttribute('href', 'https://financehubuk.co.uk')
+    }
+
+    const schemaScript = document.createElement('script')
+    schemaScript.type = 'application/ld+json'
+    schemaScript.innerHTML = JSON.stringify({
+      '@context': 'https://schema.org',
+      '@graph': [
+        {
+          '@type': 'Organization',
+          'name': 'Finance Hub UK',
+          'url': 'https://financehubuk.co.uk',
+          'logo': 'https://financehubuk.co.uk/logo.png',
+          'description': 'Free UK financial calculators and quote comparison tools',
+          'contactPoint': {
+            '@type': 'ContactPoint',
+            'contactType': 'Customer Support',
+            'email': 'support@financehubuk.co.uk'
+          },
+          'sameAs': [
+            'https://twitter.com/financehubuk',
+            'https://linkedin.com/company/financehubuk'
+          ]
+        },
+        {
+          '@type': 'BreadcrumbList',
+          'itemListElement': [
+            {
+              '@type': 'ListItem',
+              'position': 1,
+              'name': 'Home',
+              'item': 'https://financehubuk.co.uk'
+            }
+          ]
+        },
+        {
+          '@type': 'WebSite',
+          'url': 'https://financehubuk.co.uk',
+          'potentialAction': {
+            '@type': 'SearchAction',
+            'target': {
+              '@type': 'EntryPoint',
+              'urlTemplate': 'https://financehubuk.co.uk/search?q={search_term_string}'
+            },
+            'query-input': 'required name=search_term_string'
+          }
+        },
+        {
+          '@type': 'FAQPage',
+          'mainEntity': [
+            {
+              '@type': 'Question',
+              'name': 'Are Finance Hub UK calculators really free?',
+              'acceptedAnswer': {
+                '@type': 'Answer',
+                'text': 'Yes, all our calculators and quote comparison tools are 100% free. No signup required, no hidden fees, no credit card needed.'
+              }
+            },
+            {
+              '@type': 'Question',
+              'name': 'How accurate are your calculators?',
+              'acceptedAnswer': {
+                '@type': 'Answer',
+                'text': 'Our calculators use current market rates and algorithms to provide accurate estimates. Results are for informational purposes - always verify with providers for exact quotes.'
+              }
+            },
+            {
+              '@type': 'Question',
+              'name': 'Do you share my data with third parties?',
+              'acceptedAnswer': {
+                '@type': 'Answer',
+                'text': 'No. Your data is secure and private. We only share information with quote partners if you explicitly request quotes. See our Privacy Policy for details.'
+              }
+            },
+            {
+              '@type': 'Question',
+              'name': 'Which calculator should I use?',
+              'acceptedAnswer': {
+                '@type': 'Answer',
+                'text': 'Choose based on your needs: Mortgage Calculator for home loans, Car Insurance for vehicle coverage, Home Insurance for property, Life Insurance for protection, Pet Insurance for your pets, or Loan Calculator for personal loans.'
+              }
+            }
+          ]
+        },
+        {
+          '@type': 'CollectionPage',
+          'name': 'Financial Calculators',
+          'url': 'https://financehubuk.co.uk',
+          'description': 'Free UK financial calculators and quote comparison tools'
+        }
+      ]
+    })
+    document.head.appendChild(schemaScript)
+    
+    window.scrollTo(0, 0)
   }, [])
 
   return (
@@ -145,11 +261,11 @@ export default function Home() {
 
             {/* Loan Calculator */}
             <a
-              href="/calculators/loan-calculator"
+              href="/calculators/personal-loan-calculator"
               className="bg-white border-2 border-gray-200 rounded-xl p-6 hover:shadow-xl hover:border-primary-500 transition group"
             >
               <div className="text-4xl mb-4">💳</div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3">Loan Calculator</h3>
+              <h3 className="text-xl font-bold text-gray-900 mb-3">Personal Loan Calculator</h3>
               <p className="text-gray-600 text-sm mb-4">
                 Calculate loan payments and compare personal loan offers from UK providers.
               </p>
@@ -217,3 +333,4 @@ export default function Home() {
     </div>
   )
 }
+
