@@ -350,12 +350,9 @@ export default function NetWorthCalculator() {
             <h2 className="text-2xl font-bold mb-3">Track Your Financial Progress</h2>
             <p className="mb-6">Calculate your net worth and start building wealth. Monitor your progress monthly and watch your net worth grow.</p>
             
-            <button 
-              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-              className="bg-white text-primary-600 font-semibold py-3 px-8 rounded-lg hover:bg-gray-100 transition"
-            >
-              Start Tracking
-            </button>
+            <div className="bg-white bg-opacity-10 p-6 rounded-lg">
+              <iframe src="https://app.smartsuite.com/form/sba974gi/l5qQJVsntQ?header=false" width="100%" height="350" frameBorder="0" title="SmartSuite Net Worth Inquiry Form"></iframe>
+            </div>
           </section>
         </div>
 
@@ -367,3 +364,4 @@ export default function NetWorthCalculator() {
     </div>
   )
 }
+
