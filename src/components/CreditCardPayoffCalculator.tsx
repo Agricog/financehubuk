@@ -372,7 +372,7 @@ export default function CreditCardPayoffCalculator() {
         </div>
 
         <div className="mt-12 pt-8 border-t border-gray-200 text-center text-sm text-gray-600">
-          <p>This calculator provides estimates for informational purposes only. Actual payoff timelines depend on your card terms and personal circumstances.</p
+          <p>This calculator provides estimates for informational purposes only. Actual payoff timelines depend on your card terms and personal circumstances.</p>
         </div>
       </div>
     </div>
