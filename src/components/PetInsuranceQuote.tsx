@@ -470,9 +470,13 @@ export default function PetInsuranceQuotePage() {
             <h2 className="text-2xl font-bold mb-3">Get Your Pet Protected Today</h2>
             <p className="mb-6">Get personalized pet insurance quotes instantly. Compare lifetime, time-limited, and accident-only cover from leading UK insurers. Protect your beloved pet's health and your finances.</p>
             
-            <button className="bg-white text-primary-600 font-semibold py-3 px-8 rounded-lg hover:bg-gray-100 transition">
-              Get Free Quote
-            </button>
+            <button 
+             onClick={() => document.querySelector('iframe')?.scrollIntoView({ behavior: 'smooth' })}
+            className="bg-white text-primary-600 font-semibold py-3 px-8 rounded-lg hover:bg-gray-100 transition"
+           >
+             Get Free Quote
+           </button>
+
           </section>
         </div>
 
