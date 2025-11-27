@@ -380,7 +380,7 @@ export default function MortgageCalculator() {
         </div>
 
         {/* FCA / information-only disclaimer */}
-        <div className="mt-8 pt-6 border-t border-gray-200 text-xs text-gray-500 text-center">
+        <div className="mt-8 pt-6 border-t border-gray-200 text-xs text-gray-700 text-center">
           <p>
             FinanceHubUK provides tools and information for general guidance only. The results from this calculator
             are estimates and do not constitute personal advice or a recommendation.
