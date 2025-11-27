@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { ArrowLeft } from 'lucide-react'
+import { ArrowLeft, FileDown } from 'lucide-react'
 import { Link } from 'react-router-dom'
 
 interface ExchangeRate {
@@ -104,6 +104,15 @@ export default function CurrencyConverter() {
     convert()
   }, [fromAmount, toCurrency])
 
+  const handleDownload = () => {
+    const selectedCurrency = currencies.find(c => c.code === toCurrency)
+    const data = `CURRENCY CONVERSION REPORT\n${'='.repeat(50)}\n\nGenerated: ${new Date().toLocaleString()}\n\n${'='.repeat(50)}\nCONVERSION DETAILS\n${'='.repeat(50)}\n\nFrom Currency: GBP (British Pound)\nTo Currency: ${toCurrency} (${selectedCurrency?.name || 'Unknown'})\n\nAmount: £${fromAmount.toLocaleString('en-GB', { minimumFractionDigits: 2 })}\nResult: ${result.toLocaleString('en-GB', { minimumFractionDigits: 2 })} ${toCurrency}\n\n${'='.repeat(50)}\nEXCHANGE RATE\n${'='.repeat(50)}\n\n1 GBP = ${selectedCurrency?.rate.toFixed(4) || '0.0000'} ${toCurrency}\n\n${'='.repeat(50)}\nALL AVAILABLE RATES\n${'='.repeat(50)}\n\n${currencies.map(c => `1 GBP = ${c.rate.toFixed(4)} ${c.code} (${c.name})`).join('\n')}\n\n${'='.repeat(50)}\nDISCLAIMER\n${'='.repeat(50)}\n\nRates shown are approximate and updated daily.\nFor exact rates, check with your bank or forex provider.\nRates fluctuate constantly during trading hours.\n\nfinancehubuk.co.uk`
+    const element = document.createElement('a')
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(data))
+    element.setAttribute('download', `currency-conversion-${new Date().getTime()}.txt`)
+    element.click()
+  }
+
   return (
     <div className="min-h-screen bg-gray-50 py-12">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -121,10 +130,17 @@ export default function CurrencyConverter() {
         <div className="bg-white rounded-xl shadow-lg p-8 mb-12">
           <h2 className="text-2xl font-bold text-gray-900 mb-6">Convert Currency</h2>
           
-          <div className="grid md:grid-cols-3 gap-6 items-end">
+          <div className="grid md:grid-cols-3 gap-6 items-end mb-8">
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-2">Amount (GBP)</label>
-              <input type="number" value={fromAmount} onChange={(e) => setFromAmount(parseFloat(e.target.value) || 0)} className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 text-lg font-semibold" placeholder="Enter amount" />
+              <input 
+                type="number" 
+                value={fromAmount} 
+                onChange={(e) => setFromAmount(parseFloat(e.target.value) || 0)} 
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent text-lg font-semibold" 
+                placeholder="Enter amount" 
+                aria-label="Amount in GBP"
+              />
             </div>
 
             <div className="flex justify-center">
@@ -133,7 +149,12 @@ export default function CurrencyConverter() {
 
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-2">Target Currency</label>
-              <select value={toCurrency} onChange={(e) => setToCurrency(e.target.value)} className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 text-lg font-semibold">
+              <select 
+                value={toCurrency} 
+                onChange={(e) => setToCurrency(e.target.value)} 
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent text-lg font-semibold"
+                aria-label="Target currency"
+              >
                 {currencies.map(currency => (
                   <option key={currency.code} value={currency.code}>
                     {currency.flag} {currency.code} - {currency.name}
@@ -143,9 +164,17 @@ export default function CurrencyConverter() {
             </div>
           </div>
 
-          <div className="mt-8 p-6 bg-gradient-to-br from-primary-50 to-primary-100 rounded-lg">
+          <button 
+            onClick={handleDownload}
+            className="w-full mb-6 flex items-center justify-center gap-2 bg-primary-500 hover:bg-primary-600 text-white font-semibold py-2 rounded-lg transition"
+          >
+            <FileDown className="w-4 h-4" />
+            Download Conversion
+          </button>
+
+          <div className="p-6 bg-gradient-to-br from-primary-50 to-primary-100 rounded-lg">
             <p className="text-gray-600 mb-2">Conversion Result</p>
-            <div className="flex items-baseline gap-4">
+            <div className="flex items-baseline gap-4 flex-wrap">
               <p className="text-4xl font-bold text-primary-600">£{fromAmount.toLocaleString('en-GB', { minimumFractionDigits: 2 })}</p>
               <p className="text-2xl text-gray-600">=</p>
               <p className="text-4xl font-bold text-primary-600">{result.toLocaleString('en-GB', { minimumFractionDigits: 2 })} {toCurrency}</p>
@@ -161,7 +190,18 @@ export default function CurrencyConverter() {
             <h2 className="text-2xl font-bold text-gray-900 mb-4">Popular Currencies</h2>
             <div className="grid md:grid-cols-2 gap-4">
               {currencies.map(currency => (
-                <div key={currency.code} className="bg-white border border-gray-200 rounded-lg p-4 hover:shadow-md transition cursor-pointer" onClick={() => setToCurrency(currency.code)}>
+                <div 
+                  key={currency.code} 
+                  className="bg-white border border-gray-200 rounded-lg p-4 hover:shadow-md transition cursor-pointer"
+                  onClick={() => setToCurrency(currency.code)}
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      setToCurrency(currency.code)
+                    }
+                  }}
+                >
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
                       <span className="text-3xl">{currency.flag}</span>
@@ -250,17 +290,37 @@ export default function CurrencyConverter() {
             <p className="mb-6">Use our free currency converter for travel, business, and investment. Get live exchange rates for 50+ global currencies.</p>
             
             <div className="bg-white bg-opacity-10 p-6 rounded-lg">
-              <iframe src="https://app.smartsuite.com/form/sba974gi/l5qQJVsntQ?header=false" width="100%" height="350" frameBorder="0" title="SmartSuite Currency Converter Inquiry Form"></iframe>
+              <iframe 
+                src="https://app.smartsuite.com/form/sba974gi/l5qQJVsntQ?header=false&Prefill_Registration+Source=CurrencyConverter" 
+                width="100%" 
+                height="350" 
+                frameBorder="0" 
+                title="SmartSuite Currency Converter Inquiry Form"
+                className="rounded-lg"
+              />
             </div>
           </section>
         </div>
 
-        <div className="mt-12 pt-8 border-t border-gray-200 text-center text-sm text-gray-600">
-          <p>Exchange rates shown are approximate and updated daily. For exact rates, check with your bank or forex provider. Rates fluctuate constantly during trading hours.</p>
-          <p className="mt-2"><Link to="/privacy-policy" className="hover:underline">Privacy Policy</Link> | <Link to="/terms-of-service" className="hover:underline">Terms of Service</Link></p>
+        {/* FCA / information-only disclaimer */}
+        <div className="mt-8 pt-6 border-t border-gray-200 text-xs text-gray-700 text-center">
+          <p>
+            FinanceHubUK provides tools and information for general guidance only. Exchange rates shown are
+            approximate and updated daily. This is not a real-time converter.
+          </p>
+          <p className="mt-2">
+            For exact exchange rates, check with your bank, forex provider, or specialist currency service.
+            Rates fluctuate constantly during trading hours and may differ significantly from rates shown here.
+          </p>
+          <p className="mt-2">
+            FinanceHubUK is not authorised by the Financial Conduct Authority (FCA) to provide regulated financial
+            advice. For large currency exchanges (£10,000+), contact a regulated financial advisor or currency specialist
+            for proper advice and competitive rates.
+          </p>
         </div>
       </div>
     </div>
   )
 }
+
 
