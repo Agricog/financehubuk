@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { ArrowLeft, Download, Share2 } from 'lucide-react'
+import { ArrowLeft, Download } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { useEffect } from 'react'
 
@@ -221,6 +221,15 @@ export default function LoanCalculatorPage() {
     }
   }
 
+  const handleDownload = () => {
+    if (!results) return
+    const data = `PERSONAL LOAN CALCULATOR RESULTS\n${'='.repeat(50)}\n\nLoan Amount: £${loanAmount.toLocaleString()}\nInterest Rate (APR): ${interestRate}%\nLoan Term: ${loanTerm} years\n\n${'='.repeat(50)}\nRESULTS\n${'='.repeat(50)}\n\nMonthly Payment: £${results.monthlyPayment}\nTotal Interest: £${results.totalInterest}\nTotal Cost: £${results.totalPaid}\nAPR: ${results.apr}%\n\nGenerated: ${new Date().toLocaleString()}\nfinancehubuk.co.uk`
+    const element = document.createElement('a')
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(data))
+    element.setAttribute('download', `loan-calculation-${new Date().getTime()}.txt`)
+    element.click()
+  }
+
   return (
     <div className="min-h-screen bg-gray-50 py-12">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -275,10 +284,13 @@ export default function LoanCalculatorPage() {
                     <div className="flex justify-between"><span className="text-gray-700">APR:</span><span className="font-semibold">{results.apr}%</span></div>
                   </div>
 
-                  <div className="flex gap-3 pt-4">
-                    <button className="flex-1 flex items-center justify-center gap-2 bg-white hover:bg-gray-100 text-gray-700 font-semibold py-2 rounded-lg transition"><Share2 className="w-4 h-4" />Share</button>
-                    <button className="flex-1 flex items-center justify-center gap-2 bg-white hover:bg-gray-100 text-gray-700 font-semibold py-2 rounded-lg transition"><Download className="w-4 h-4" />Download</button>
-                  </div>
+                  <button 
+                    onClick={handleDownload}
+                    className="w-full flex items-center justify-center gap-2 bg-primary-500 hover:bg-primary-600 text-white font-semibold py-2 rounded-lg transition"
+                  >
+                    <Download className="w-4 h-4" />
+                    Download Results
+                  </button>
                 </div>
               ) : (
                 <div className="bg-gray-100 rounded-lg p-8 text-center text-gray-600">
@@ -491,19 +503,38 @@ export default function LoanCalculatorPage() {
             <p className="mb-6">Connect with qualified financial advisors who can help you find the best personal loan deal for your situation.</p>
             
             <div className="bg-white bg-opacity-10 p-6 rounded-lg">
-              <iframe src="https://app.smartsuite.com/form/sba974gi/l5qQJVsntQ?header=false" width="100%" height="350" frameBorder="0" title="SmartSuite Loan Inquiry Form"></iframe>
+              <iframe 
+                src="https://app.smartsuite.com/form/sba974gi/l5qQJVsntQ?header=false&Prefill_Registration+Source=LoanCalculator" 
+                width="100%" 
+                height="350" 
+                frameBorder="0" 
+                title="SmartSuite Loan Inquiry Form"
+                className="rounded-lg"
+              />
             </div>
           </section>
         </div>
 
-        <div className="mt-12 pt-8 border-t border-gray-200 text-center text-sm text-gray-600">
-          <p>This calculator provides estimates for informational purposes only. Actual loan terms depend on your lender, credit profile, and personal circumstances.</p>
-          <p className="mt-2"><Link to="/privacy-policy" className="hover:underline">Privacy Policy</Link> | <Link to="/terms-of-service" className="hover:underline">Terms of Service</Link></p>
+        {/* FCA / information-only disclaimer */}
+        <div className="mt-8 pt-6 border-t border-gray-200 text-xs text-gray-700 text-center">
+          <p>
+            FinanceHubUK provides tools and information for general guidance only. The results from this calculator
+            are estimates and do not constitute personal advice or a recommendation.
+          </p>
+          <p className="mt-2">
+            FinanceHubUK is not authorised by the Financial Conduct Authority (FCA) to provide regulated financial
+            advice. You should consider speaking to a regulated financial advisor or lender before making any
+            borrowing decisions.
+          </p>
+          <p className="mt-2">
+            Lender criteria, rates and products can change at short notice and may differ from the examples shown.
+          </p>
         </div>
       </div>
     </div>
   )
 }
+
 
 
 
