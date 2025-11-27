@@ -175,13 +175,13 @@ export default function MortgageCalculator() {
               Enter your details to receive a personalized mortgage report with lender recommendations.
             </p>
             <iframe
-              src="https://app.smartsuite.com/form/sba974gi/l5qQJVsntQ?header=false&Prefill_Registration+Source=Mortgage-Affordability"
-              width="100%"
-              height="350"
-              frameBorder="0"
-              className="rounded-lg"
-              title="SmartSuite Mortgage Inquiry Form"
-            />
+  src="https://app.smartsuite.com/form/sba974gi/l5qQJVsntQ?header=false&Prefill_Registration+Source=Mortgage-Affordability"
+  width="100%"
+  height="350"
+  frameBorder="0"
+  title="SmartSuite Mortgage Inquiry Form"
+  className="rounded-lg border border-gray-200"
+/>
           </div>
         )}
 
