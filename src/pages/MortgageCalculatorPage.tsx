@@ -547,19 +547,42 @@ export default function MortgageCalculatorPage() {
             <p className="mb-6">Connect with qualified mortgage advisors who can help you find the best deal for your situation.</p>
             
             <div className="bg-white bg-opacity-10 p-6 rounded-lg">
-              <iframe src="https://app.smartsuite.com/form/sba974gi/l5qQJVsntQ?header=false" width="100%" height="350" frameBorder="0" title="SmartSuite Mortgage Inquiry Form"></iframe>
+              <iframe 
+                src="https://app.smartsuite.com/form/sba974gi/l5qQJVsntQ?header=false&Prefill_Registration+Source=MortgageCalculator" 
+                width="100%" 
+                height="350" 
+                frameBorder="0" 
+                title="SmartSuite Mortgage Inquiry Form"
+                className="rounded-lg"
+              />
             </div>
           </section>
         </div>
 
         <div className="mt-12 pt-8 border-t border-gray-200 text-center text-sm text-gray-600">
-          <p>This calculator provides estimates for informational purposes only. Actual mortgage terms depend on your lender, credit profile, and personal circumstances.</p>
-          <p className="mt-2"><Link to="/privacy-policy" className="hover:underline">Privacy Policy</Link> | <Link to="/terms-of-service" className="hover:underline">Terms of Service</Link></p>
+          <p>This calculator provides estimates for informational purposes only. Actual mortgage terms depend on your lender, credit profile, and personal circumstances.</p
+        </div>
+
+        {/* FCA / information-only disclaimer */}
+        <div className="mt-8 pt-6 border-t border-gray-200 text-xs text-gray-700 text-center">
+          <p>
+            FinanceHubUK provides tools and information for general guidance only. The results from this calculator
+            are estimates and do not constitute personal advice or a recommendation.
+          </p>
+          <p className="mt-2">
+            FinanceHubUK is not authorised by the Financial Conduct Authority (FCA) to provide regulated financial
+            advice. You should consider speaking to a regulated mortgage adviser or lender before making any
+            borrowing decisions.
+          </p>
+          <p className="mt-2">
+            Lender criteria, rates and products can change at short notice and may differ from the examples shown.
+          </p>
         </div>
       </div>
     </div>
   )
 }
+
 
 
 
