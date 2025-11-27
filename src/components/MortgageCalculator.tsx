@@ -175,11 +175,12 @@ export default function MortgageCalculator() {
               Enter your details to receive a personalized mortgage report with lender recommendations.
             </p>
             <iframe
-              src="https://app.smartsuite.com/form/sba974gi/l5qQJVsntQ?header=false"
+              src="https://app.smartsuite.com/form/sba974gi/l5qQJVsntQ?header=false&Prefill_Registration+Source=MortgageAffordability"
               width="100%"
-              height="600px"
+              height="350"
               frameBorder="0"
               className="rounded-lg"
+              title="SmartSuite Mortgage Inquiry Form"
             />
           </div>
         )}
@@ -377,7 +378,24 @@ export default function MortgageCalculator() {
             </div>
           </div>
         </div>
+
+        {/* FCA / information-only disclaimer */}
+        <div className="mt-8 pt-6 border-t border-gray-200 text-xs text-gray-500 text-center">
+          <p>
+            FinanceHubUK provides tools and information for general guidance only. The results from this calculator
+            are estimates and do not constitute personal advice or a recommendation.
+          </p>
+          <p className="mt-2">
+            FinanceHubUK is not authorised by the Financial Conduct Authority (FCA) to provide regulated financial
+            advice. You should consider speaking to a regulated mortgage adviser or lender before making any
+            borrowing decisions.
+          </p>
+          <p className="mt-2">
+            Lender criteria, rates and products can change at short notice and may differ from the examples shown.
+          </p>
+        </div>
       </div>
     </div>
   )
 }
+
