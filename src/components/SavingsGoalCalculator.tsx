@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { ArrowLeft } from 'lucide-react'
+import { ArrowLeft, FileDown } from 'lucide-react'
 import { Link } from 'react-router-dom'
 
 interface SavingsResult {
@@ -111,6 +111,15 @@ export default function SavingsGoalCalculatorPage() {
     })
   }
 
+  const handleDownload = () => {
+    if (!results) return
+    const data = `SAVINGS GOAL CALCULATOR RESULTS\n${'='.repeat(50)}\n\nSavings Goal: £${savingsGoal.toLocaleString()}\nCurrent Savings: £${currentSavings.toLocaleString()}\nMonthly Savings: £${monthlySavings.toLocaleString()}\nInterest Rate: ${interestRate}% p.a.\n\n${'='.repeat(50)}\nRESULTS\n${'='.repeat(50)}\n\nMonths to Reach Goal: ${results.monthsNeeded}\nYears to Reach Goal: ${results.yearsNeeded}\nTotal Saved: £${(currentSavings + (monthlySavings * parseInt(results.monthsNeeded))).toLocaleString()}\nInterest Earned: £${results.totalInterestEarned}\nTotal Amount: £${results.totalWithInterest}\n\nGenerated: ${new Date().toLocaleString()}\nfinancehubuk.co.uk`
+    const element = document.createElement('a')
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(data))
+    element.setAttribute('download', `savings-goal-calculation-${new Date().getTime()}.txt`)
+    element.click()
+  }
+
   return (
     <div className="min-h-screen bg-gray-50 py-12">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -173,6 +182,14 @@ export default function SavingsGoalCalculatorPage() {
                     <div className="flex justify-between"><span className="text-gray-700">Total Saved:</span><span className="font-semibold">£{(currentSavings + (monthlySavings * parseInt(results.monthsNeeded))).toLocaleString('en-GB', { minimumFractionDigits: 0 })}</span></div>
                     <div className="flex justify-between"><span className="text-gray-700">Interest Earned:</span><span className="font-semibold text-green-600">£{parseFloat(results.totalInterestEarned).toLocaleString('en-GB', { minimumFractionDigits: 2 })}</span></div>
                   </div>
+
+                  <button 
+                    onClick={handleDownload}
+                    className="w-full flex items-center justify-center gap-2 bg-primary-500 hover:bg-primary-600 text-white font-semibold py-2 rounded-lg transition"
+                  >
+                    <FileDown className="w-4 h-4" />
+                    Download Results
+                  </button>
 
                   <div className="bg-green-100 border border-green-300 rounded-lg p-4">
                     <p className="text-sm font-semibold text-green-800">✅ You'll reach your goal in {results.yearsNeeded} years with consistent savings!</p>
@@ -326,16 +343,36 @@ export default function SavingsGoalCalculatorPage() {
             <p className="mb-6">Use our free savings goal calculator to plan your financial future and discover how long it takes to reach your targets.</p>
             
             <div className="bg-white bg-opacity-10 p-6 rounded-lg">
-              <iframe src="https://app.smartsuite.com/form/sba974gi/l5qQJVsntQ?header=false" width="100%" height="350" frameBorder="0" title="SmartSuite Savings Goal Inquiry Form"></iframe>
+              <iframe 
+                src="https://app.smartsuite.com/form/sba974gi/l5qQJVsntQ?header=false&Prefill_Registration+Source=SavingsGoalCalculator" 
+                width="100%" 
+                height="350" 
+                frameBorder="0" 
+                title="SmartSuite Savings Goal Inquiry Form"
+                className="rounded-lg"
+              />
             </div>
           </section>
         </div>
 
-        <div className="mt-12 pt-8 border-t border-gray-200 text-center text-sm text-gray-600">
-          <p>This tool provides estimates for informational purposes only. Actual savings timelines depend on interest rates, inflation, and market conditions.</p>
+        {/* FCA / information-only disclaimer */}
+        <div className="mt-8 pt-6 border-t border-gray-200 text-xs text-gray-700 text-center">
+          <p>
+            FinanceHubUK provides tools and information for general guidance only. The results from this calculator
+            are estimates and do not constitute personal advice or a recommendation.
+          </p>
+          <p className="mt-2">
+            FinanceHubUK is not authorised by the Financial Conduct Authority (FCA) to provide regulated financial
+            advice. You should consider speaking to a regulated financial advisor or lender before making any
+            financial decisions.
+          </p>
+          <p className="mt-2">
+            Lender criteria, rates and products can change at short notice and may differ from the examples shown.
+          </p>
         </div>
       </div>
     </div>
   )
 }
+
 
