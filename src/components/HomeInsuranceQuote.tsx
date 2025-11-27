@@ -419,8 +419,7 @@ export default function HomeInsuranceQuotePage() {
         </div>
 
         <div className="mt-12 pt-8 border-t border-gray-200 text-center text-sm text-gray-600">
-          <p>This tool provides estimates for informational purposes only. Actual insurance quotes depend on your specific property, location, and personal circumstances.</p>
-          <p className="mt-2"><Link to="/privacy-policy" className="hover:underline">Privacy Policy</Link> | <Link to="/terms-of-service" className="hover:underline">Terms of Service</Link></p>
+          <p>This tool provides estimates for informational purposes only. Actual insurance quotes depend on your specific property, location, and personal circumstances.</p
         </div>
       </div>
     </div>
