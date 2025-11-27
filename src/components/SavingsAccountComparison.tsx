@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { ArrowLeft } from 'lucide-react'
+import { ArrowLeft, FileDown } from 'lucide-react'
 import { Link } from 'react-router-dom'
 
 interface SavingsAccount {
@@ -94,6 +94,18 @@ export default function SavingsAccountComparison() {
 
   const sortedAccounts = [...accounts].sort((a, b) => calculateFinalAmount(b.rate) - calculateFinalAmount(a.rate))
 
+  const handleDownload = () => {
+    const data = `SAVINGS ACCOUNT COMPARISON REPORT\n${'='.repeat(50)}\n\nInitial Deposit: £${initialDeposit.toLocaleString()}\nTime Period: ${years} years\nGenerated: ${new Date().toLocaleString()}\n\n${'='.repeat(50)}\nACCOUNT COMPARISON\n${'='.repeat(50)}\n\n${sortedAccounts.map((account, idx) => {
+      const finalAmount = calculateFinalAmount(account.rate)
+      const interest = finalAmount - initialDeposit
+      return `${idx + 1}. ${account.name}\n   Provider: ${account.provider}\n   Rate: ${account.rate}%\n   Type: ${account.type}\n   Access: ${account.access}\n   Final Amount: £${finalAmount.toLocaleString('en-GB', { minimumFractionDigits: 2 })}\n   Interest Earned: £${interest.toLocaleString('en-GB', { minimumFractionDigits: 2 })}\n`
+    }).join('\n')}\n${'='.repeat(50)}\nTOP EARNER\n${'='.repeat(50)}\n\nAccount: ${sortedAccounts[0].name}\nProvider: ${sortedAccounts[0].provider}\nRate: ${sortedAccounts[0].rate}%\nFinal Amount: £${calculateFinalAmount(sortedAccounts[0].rate).toLocaleString('en-GB', { minimumFractionDigits: 2 })}\n\nNOTE: Rates shown are examples and subject to change.\nAlways check with providers for current rates.\n\nfinancehubuk.co.uk`
+    const element = document.createElement('a')
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(data))
+    element.setAttribute('download', `savings-comparison-${new Date().getTime()}.txt`)
+    element.click()
+  }
+
   return (
     <div className="min-h-screen bg-gray-50 py-12">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -114,15 +126,23 @@ export default function SavingsAccountComparison() {
           <div className="grid md:grid-cols-2 gap-8 mb-8">
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-2">Initial Deposit: £{initialDeposit.toLocaleString()}</label>
-              <input type="range" min="1000" max="100000" step="1000" value={initialDeposit} onChange={(e) => setInitialDeposit(parseFloat(e.target.value))} className="w-full h-2 bg-gray-300 rounded-lg appearance-none cursor-pointer" />
-              <input type="number" value={initialDeposit} onChange={(e) => setInitialDeposit(parseFloat(e.target.value) || 0)} className="w-full mt-2 px-4 py-2 border border-gray-300 rounded-lg" />
+              <input type="range" min="1000" max="100000" step="1000" value={initialDeposit} onChange={(e) => setInitialDeposit(parseFloat(e.target.value))} className="w-full h-2 bg-gray-300 rounded-lg appearance-none cursor-pointer" aria-label="Initial deposit slider" />
+              <input type="number" value={initialDeposit} onChange={(e) => setInitialDeposit(parseFloat(e.target.value) || 0)} className="w-full mt-2 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent" placeholder="Enter deposit" aria-label="Initial deposit input" />
             </div>
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-2">Time Period (Years): {years}</label>
-              <input type="range" min="1" max="10" step="1" value={years} onChange={(e) => setYears(parseFloat(e.target.value))} className="w-full h-2 bg-gray-300 rounded-lg appearance-none cursor-pointer" />
-              <input type="number" value={years} onChange={(e) => setYears(parseFloat(e.target.value) || 0)} className="w-full mt-2 px-4 py-2 border border-gray-300 rounded-lg" />
+              <input type="range" min="1" max="10" step="1" value={years} onChange={(e) => setYears(parseFloat(e.target.value))} className="w-full h-2 bg-gray-300 rounded-lg appearance-none cursor-pointer" aria-label="Years slider" />
+              <input type="number" value={years} onChange={(e) => setYears(parseFloat(e.target.value) || 0)} className="w-full mt-2 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent" placeholder="Enter years" aria-label="Years input" />
             </div>
           </div>
+
+          <button 
+            onClick={handleDownload}
+            className="w-full mb-6 flex items-center justify-center gap-2 bg-primary-500 hover:bg-primary-600 text-white font-semibold py-2 rounded-lg transition"
+          >
+            <FileDown className="w-4 h-4" />
+            Download Comparison
+          </button>
 
           <div className="overflow-x-auto">
             <table className="w-full text-sm text-gray-700">
@@ -247,18 +267,38 @@ export default function SavingsAccountComparison() {
             <p className="mb-6">Compare current rates and choose the account that matches your savings goals and lifestyle.</p>
             
             <div className="bg-white bg-opacity-10 p-6 rounded-lg">
-              <iframe src="https://app.smartsuite.com/form/sba974gi/l5qQJVsntQ?header=false" width="100%" height="350" frameBorder="0" title="SmartSuite Savings Account Inquiry Form"></iframe>
+              <iframe 
+                src="https://app.smartsuite.com/form/sba974gi/l5qQJVsntQ?header=false&Prefill_Registration+Source=SavingsAccountComparison" 
+                width="100%" 
+                height="350" 
+                frameBorder="0" 
+                title="SmartSuite Savings Account Inquiry Form"
+                className="rounded-lg"
+              />
             </div>
           </section>
         </div>
 
-        <div className="mt-12 pt-8 border-t border-gray-200 text-center text-sm text-gray-600">
-          <p>Rates shown are examples and may not reflect current market rates. Check with providers for latest rates before opening an account.</p>
-          <p className="mt-2"><Link to="/privacy-policy" className="hover:underline">Privacy Policy</Link> | <Link to="/terms-of-service" className="hover:underline">Terms of Service</Link></p>
+        {/* FCA / information-only disclaimer */}
+        <div className="mt-8 pt-6 border-t border-gray-200 text-xs text-gray-700 text-center">
+          <p>
+            FinanceHubUK provides tools and information for general guidance only. Rates shown are examples
+            and may not reflect current market rates. Always check with providers for latest rates and terms.
+          </p>
+          <p className="mt-2">
+            FinanceHubUK is not authorised by the Financial Conduct Authority (FCA) to provide regulated financial
+            advice. You should consider speaking to a regulated financial advisor before making any
+            decisions about which savings account to open.
+          </p>
+          <p className="mt-2">
+            FSCS protection covers deposits up to £85,000 per person per institution. Rates and products can
+            change at short notice. Interest calculations are for informational purposes only.
+          </p>
         </div>
       </div>
     </div>
   )
 }
+
 
 
