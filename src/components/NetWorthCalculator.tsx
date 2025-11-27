@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { ArrowLeft, Plus, Trash2 } from 'lucide-react'
+import { ArrowLeft, Plus, Trash2, FileDown } from 'lucide-react'
 import { Link } from 'react-router-dom'
 
 interface Asset {
@@ -128,6 +128,14 @@ export default function NetWorthCalculator() {
     setLiabilities(liabilities.filter(liability => liability.id !== id))
   }
 
+  const handleDownload = () => {
+    const data = `NET WORTH CALCULATOR REPORT\n${'='.repeat(50)}\n\nGenerated: ${new Date().toLocaleString()}\n\n${'='.repeat(50)}\nASSETS\n${'='.repeat(50)}\n\n${assets.map(a => `${a.name}: £${a.value.toLocaleString()}`).join('\n')}\n\nTotal Assets: £${totalAssets.toLocaleString()}\n\n${'='.repeat(50)}\nLIABILITIES\n${'='.repeat(50)}\n\n${liabilities.map(l => `${l.name}: £${l.value.toLocaleString()}`).join('\n')}\n\nTotal Liabilities: £${totalLiabilities.toLocaleString()}\n\n${'='.repeat(50)}\nNET WORTH SUMMARY\n${'='.repeat(50)}\n\nTotal Assets: £${totalAssets.toLocaleString()}\nTotal Liabilities: £${totalLiabilities.toLocaleString()}\nNet Worth: £${netWorth.toLocaleString()}\n\nAsset to Liability Ratio: ${(totalAssets / totalLiabilities).toFixed(2)}:1\n\nfinancehubuk.co.uk`
+    const element = document.createElement('a')
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(data))
+    element.setAttribute('download', `net-worth-${new Date().getTime()}.txt`)
+    element.click()
+  }
+
   return (
     <div className="min-h-screen bg-gray-50 py-12">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -160,6 +168,14 @@ export default function NetWorthCalculator() {
             </div>
           </div>
 
+          <button 
+            onClick={handleDownload}
+            className="w-full mb-6 flex items-center justify-center gap-2 bg-primary-500 hover:bg-primary-600 text-white font-semibold py-2 rounded-lg transition"
+          >
+            <FileDown className="w-4 h-4" />
+            Download Report
+          </button>
+
           <div className="grid md:grid-cols-2 gap-8">
             <div>
               <h3 className="text-xl font-bold text-gray-900 mb-4">Assets</h3>
@@ -175,8 +191,8 @@ export default function NetWorthCalculator() {
                 ))}
               </div>
               <div className="space-y-2">
-                <input type="text" value={newAssetName} onChange={(e) => setNewAssetName(e.target.value)} placeholder="Asset name" className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500" />
-                <input type="number" value={newAssetValue} onChange={(e) => setNewAssetValue(e.target.value)} placeholder="Asset value" className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500" />
+                <input type="text" value={newAssetName} onChange={(e) => setNewAssetName(e.target.value)} placeholder="Asset name" className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent" />
+                <input type="number" value={newAssetValue} onChange={(e) => setNewAssetValue(e.target.value)} placeholder="Asset value" className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent" />
                 <button onClick={addAsset} className="w-full bg-green-500 hover:bg-green-600 text-white font-semibold py-2 rounded-lg transition flex items-center justify-center gap-2"><Plus className="w-4 h-4" />Add Asset</button>
               </div>
             </div>
@@ -195,8 +211,8 @@ export default function NetWorthCalculator() {
                 ))}
               </div>
               <div className="space-y-2">
-                <input type="text" value={newLiabilityName} onChange={(e) => setNewLiabilityName(e.target.value)} placeholder="Debt name" className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500" />
-                <input type="number" value={newLiabilityValue} onChange={(e) => setNewLiabilityValue(e.target.value)} placeholder="Debt amount" className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500" />
+                <input type="text" value={newLiabilityName} onChange={(e) => setNewLiabilityName(e.target.value)} placeholder="Debt name" className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent" />
+                <input type="number" value={newLiabilityValue} onChange={(e) => setNewLiabilityValue(e.target.value)} placeholder="Debt amount" className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent" />
                 <button onClick={addLiability} className="w-full bg-red-500 hover:bg-red-600 text-white font-semibold py-2 rounded-lg transition flex items-center justify-center gap-2"><Plus className="w-4 h-4" />Add Liability</button>
               </div>
             </div>
@@ -351,14 +367,33 @@ export default function NetWorthCalculator() {
             <p className="mb-6">Calculate your net worth and start building wealth. Monitor your progress monthly and watch your net worth grow.</p>
             
             <div className="bg-white bg-opacity-10 p-6 rounded-lg">
-              <iframe src="https://app.smartsuite.com/form/sba974gi/l5qQJVsntQ?header=false" width="100%" height="350" frameBorder="0" title="SmartSuite Net Worth Inquiry Form"></iframe>
+              <iframe 
+                src="https://app.smartsuite.com/form/sba974gi/l5qQJVsntQ?header=false&Prefill_Registration+Source=NetWorthCalculator" 
+                width="100%" 
+                height="350" 
+                frameBorder="0" 
+                title="SmartSuite Net Worth Inquiry Form"
+                className="rounded-lg"
+              />
             </div>
           </section>
         </div>
 
-        <div className="mt-12 pt-8 border-t border-gray-200 text-center text-sm text-gray-600">
-          <p>This calculator is for informational purposes. Values should be reviewed annually and updated as circumstances change.</p>
-          <p className="mt-2"><Link to="/privacy-policy" className="hover:underline">Privacy Policy</Link> | <Link to="/terms-of-service" className="hover:underline">Terms of Service</Link></p>
+        {/* FCA / information-only disclaimer */}
+        <div className="mt-8 pt-6 border-t border-gray-200 text-xs text-gray-700 text-center">
+          <p>
+            FinanceHubUK provides tools and information for general guidance only. The results from this calculator
+            are estimates and do not constitute personal advice or a recommendation.
+          </p>
+          <p className="mt-2">
+            FinanceHubUK is not authorised by the Financial Conduct Authority (FCA) to provide regulated financial
+            advice. You should consider speaking to a regulated financial advisor before making any
+            financial decisions based on your net worth calculation.
+          </p>
+          <p className="mt-2">
+            Asset valuations should be reviewed regularly and updated as circumstances change. Use current market
+            values rather than purchase prices for accuracy in tracking your financial position.
+          </p>
         </div>
       </div>
     </div>
