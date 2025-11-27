@@ -560,7 +560,7 @@ export default function MortgageCalculatorPage() {
         </div>
 
         <div className="mt-12 pt-8 border-t border-gray-200 text-center text-sm text-gray-600">
-          <p>This calculator provides estimates for informational purposes only. Actual mortgage terms depend on your lender, credit profile, and personal circumstances.</p
+          <p>This calculator provides estimates for informational purposes only. Actual mortgage terms depend on your lender, credit profile, and personal circumstances.</p>
         </div>
 
         {/* FCA / information-only disclaimer */}
