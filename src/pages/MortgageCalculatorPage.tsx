@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { ArrowLeft, Download, Share2 } from 'lucide-react'
+import { ArrowLeft, Download } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { useEffect } from 'react'
 
@@ -227,6 +227,15 @@ export default function MortgageCalculatorPage() {
     }
   }
 
+  const handleDownload = () => {
+    if (!results) return
+    const data = `MORTGAGE CALCULATOR RESULTS\n${'='.repeat(50)}\n\nProperty Price: £${propertyPrice.toLocaleString()}\nDeposit: £${deposit.toLocaleString()} (${((deposit/propertyPrice)*100).toFixed(1)}%)\nLoan Amount: £${results.loanAmount}\nInterest Rate: ${interestRate}%\nLoan Term: ${loanTerm} years\n\n${'='.repeat(50)}\nRESULTS\n${'='.repeat(50)}\n\nMonthly Payment: £${results.monthlyPayment}\nTotal Interest: £${results.totalInterest}\nTotal Cost: £${results.totalPaid}\nLTV Ratio: ${results.ltvRatio}%\n\nGenerated: ${new Date().toLocaleString()}\nfinancehubuk.co.uk`
+    const element = document.createElement('a')
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(data))
+    element.setAttribute('download', `mortgage-calculation-${new Date().getTime()}.txt`)
+    element.click()
+  }
+
   return (
     <div className="min-h-screen bg-gray-50 py-12">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -288,10 +297,13 @@ export default function MortgageCalculatorPage() {
                     <div className="flex justify-between"><span className="text-gray-700">LTV Ratio:</span><span className="font-semibold">{results.ltvRatio}%</span></div>
                   </div>
 
-                  <div className="flex gap-3 pt-4">
-                    <button className="flex-1 flex items-center justify-center gap-2 bg-white hover:bg-gray-100 text-gray-700 font-semibold py-2 rounded-lg transition"><Share2 className="w-4 h-4" />Share</button>
-                    <button className="flex-1 flex items-center justify-center gap-2 bg-white hover:bg-gray-100 text-gray-700 font-semibold py-2 rounded-lg transition"><Download className="w-4 h-4" />Download</button>
-                  </div>
+                  <button 
+                    onClick={handleDownload}
+                    className="w-full flex items-center justify-center gap-2 bg-primary-500 hover:bg-primary-600 text-white font-semibold py-2 rounded-lg transition"
+                  >
+                    <Download className="w-4 h-4" />
+                    Download Results
+                  </button>
                 </div>
               ) : (
                 <div className="bg-gray-100 rounded-lg p-8 text-center text-gray-600">
@@ -582,6 +594,7 @@ export default function MortgageCalculatorPage() {
     </div>
   )
 }
+
 
 
 
