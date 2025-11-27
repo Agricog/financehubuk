@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { ArrowLeft } from 'lucide-react'
+import { ArrowLeft, FileDown } from 'lucide-react'
 import { Link } from 'react-router-dom'
 
 interface InterestResults {
@@ -102,6 +102,15 @@ export default function SavingsInterestCalculator() {
     })
   }
 
+  const handleDownload = () => {
+    if (!results) return
+    const data = `SAVINGS INTEREST CALCULATOR RESULTS\n${'='.repeat(50)}\n\nPrincipal Amount: £${principalAmount.toLocaleString()}\nAnnual Interest Rate: ${annualRate}%\nTime Period: ${years} years\n\n${'='.repeat(50)}\nRESULTS\n${'='.repeat(50)}\n\nFinal Amount: £${results.finalAmount}\nTotal Interest Earned: £${results.totalInterest}\nTotal Return: ${results.interestPercentage}%\n\n${'='.repeat(50)}\nINFORMATION\n${'='.repeat(50)}\n\nThis calculation uses simple interest.\nFor compound interest, the amount would be higher.\nActual rates may vary by provider.\n\nGenerated: ${new Date().toLocaleString()}\nfinancehubuk.co.uk`
+    const element = document.createElement('a')
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(data))
+    element.setAttribute('download', `savings-interest-${new Date().getTime()}.txt`)
+    element.click()
+  }
+
   return (
     <div className="min-h-screen bg-gray-50 py-12">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -155,6 +164,14 @@ export default function SavingsInterestCalculator() {
                     <div className="flex justify-between"><span className="text-gray-700">Interest Earned:</span><span className="font-semibold text-green-600">£{parseFloat(results.totalInterest).toLocaleString('en-GB', { minimumFractionDigits: 2 })}</span></div>
                     <div className="flex justify-between"><span className="text-gray-700">Total Return:</span><span className="font-semibold text-green-600">{results.interestPercentage}%</span></div>
                   </div>
+
+                  <button 
+                    onClick={handleDownload}
+                    className="w-full flex items-center justify-center gap-2 bg-primary-500 hover:bg-primary-600 text-white font-semibold py-2 rounded-lg transition"
+                  >
+                    <FileDown className="w-4 h-4" />
+                    Download Results
+                  </button>
 
                   <div className="bg-green-100 border border-green-300 rounded-lg p-4">
                     <p className="text-sm font-semibold text-green-800">💡 Your money grows by £{parseFloat(results.totalInterest).toLocaleString('en-GB', { minimumFractionDigits: 0 })} through interest!</p>
@@ -263,21 +280,21 @@ export default function SavingsInterestCalculator() {
           <section>
             <h2 className="text-2xl font-bold text-gray-900 mb-6">Related Calculators & Tools</h2>
             <div className="grid md:grid-cols-2 gap-4">
-              <Link to="/calculators/compound-interest-calculator" className="bg-blue-50 hover:bg-blue-100 border-l-4 border-primary-500 p-6 rounded transition">
-                <h3 className="font-semibold text-gray-900 mb-2">Compound Interest</h3>
-                <p className="text-sm text-gray-700">Calculate long-term wealth building</p>
+              <Link to="/calculators/investment-calculator" className="bg-blue-50 hover:bg-blue-100 border-l-4 border-primary-500 p-6 rounded transition">
+                <h3 className="font-semibold text-gray-900 mb-2">Investment Calculator</h3>
+                <p className="text-sm text-gray-700">Calculate long-term investment growth</p>
               </Link>
               <Link to="/calculators/savings-goal-calculator" className="bg-green-50 hover:bg-green-100 border-l-4 border-green-500 p-6 rounded transition">
                 <h3 className="font-semibold text-gray-900 mb-2">Savings Goal Calculator</h3>
                 <p className="text-sm text-gray-700">Calculate time to reach savings goals</p>
               </Link>
-              <Link to="/calculators/investment-calculator" className="bg-purple-50 hover:bg-purple-100 border-l-4 border-purple-500 p-6 rounded transition">
-                <h3 className="font-semibold text-gray-900 mb-2">Investment Calculator</h3>
-                <p className="text-sm text-gray-700">Calculate investment growth</p>
-              </Link>
-              <Link to="/calculators/budget-planner-calculator" className="bg-orange-50 hover:bg-orange-100 border-l-4 border-orange-500 p-6 rounded transition">
+              <Link to="/calculators/budget-planner-calculator" className="bg-purple-50 hover:bg-purple-100 border-l-4 border-purple-500 p-6 rounded transition">
                 <h3 className="font-semibold text-gray-900 mb-2">Budget Planner</h3>
                 <p className="text-sm text-gray-700">Plan your monthly budget</p>
+              </Link>
+              <Link to="/calculators/mortgage-calculator" className="bg-orange-50 hover:bg-orange-100 border-l-4 border-orange-500 p-6 rounded transition">
+                <h3 className="font-semibold text-gray-900 mb-2">Mortgage Calculator</h3>
+                <p className="text-sm text-gray-700">Calculate mortgage affordability</p>
               </Link>
             </div>
           </section>
@@ -287,17 +304,37 @@ export default function SavingsInterestCalculator() {
             <p className="mb-6">Connect with savings experts who can help you find the best rates and accounts for your financial goals.</p>
             
             <div className="bg-white bg-opacity-10 p-6 rounded-lg">
-              <iframe src="https://app.smartsuite.com/form/sba974gi/l5qQJVsntQ?header=false" width="100%" height="350" frameBorder="0" title="SmartSuite Savings Interest Inquiry Form"></iframe>
+              <iframe 
+                src="https://app.smartsuite.com/form/sba974gi/l5qQJVsntQ?header=false&Prefill_Registration+Source=SavingsInterestCalculator" 
+                width="100%" 
+                height="350" 
+                frameBorder="0" 
+                title="SmartSuite Savings Interest Inquiry Form"
+                className="rounded-lg"
+              />
             </div>
           </section>
         </div>
 
-        <div className="mt-12 pt-8 border-t border-gray-200 text-center text-sm text-gray-600">
-          <p>This calculator provides estimates for informational purposes only. Actual interest earned depends on your account terms and rate changes.</p>
-          <p className="mt-2"><Link to="/privacy-policy" className="hover:underline">Privacy Policy</Link> | <Link to="/terms-of-service" className="hover:underline">Terms of Service</Link></p>
+        {/* FCA / information-only disclaimer */}
+        <div className="mt-8 pt-6 border-t border-gray-200 text-xs text-gray-700 text-center">
+          <p>
+            FinanceHubUK provides tools and information for general guidance only. The results from this calculator
+            are estimates and do not constitute personal advice or a recommendation.
+          </p>
+          <p className="mt-2">
+            FinanceHubUK is not authorised by the Financial Conduct Authority (FCA) to provide regulated financial
+            advice. You should consider speaking to a regulated financial advisor before making any
+            financial decisions regarding savings accounts or investments.
+          </p>
+          <p className="mt-2">
+            Interest rates and products can change at short notice and may differ from the examples shown.
+            FSCS protection covers deposits up to £85,000 per person per institution.
+          </p>
         </div>
       </div>
     </div>
   )
 }
+
 
